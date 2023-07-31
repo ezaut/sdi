@@ -21,6 +21,7 @@ Auth::routes();
 Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 });
 
 //Admin Routes List

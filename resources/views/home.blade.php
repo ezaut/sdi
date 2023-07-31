@@ -12,6 +12,7 @@
                     <a href="{{url('admin/routes')}}">Admin</a>
                     @else
                     <div class=”panel-heading”>Normal User</div>
+
                     @endif
                 </div>
             </div>

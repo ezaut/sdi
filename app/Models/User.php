@@ -15,14 +15,40 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
+     * The roles that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function inscricoes(): BelongsToMany
+    {
+        return $this->belongsToMany(Inscricao_curriculo_user_edital::class);
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'cpf',
         'name',
         'email',
         'password',
+        'nome_mae',
+        'dt_nascimento',
+        'escolaridade',
+        'grupo',
+        'endereco',
+        'complemento',
+        'bairro',
+        'cidade',
+        'uf',
+        'cep',
+        'rg',
+        'org_exp',
+        'dt_emissao',
+        'telefone',
+        'sexo',
         'type'
     ];
 
