@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nome_edital', 100);
             $table->date('dt_inicio');
             $table->date('dt_fim');
-            $table->foreignId('inscricao_id')->constrained( table: 'inscricao_curriculos_users_editals', indexName: 'editals_inscricao_id');
             $table->timestamps();
         });
     }

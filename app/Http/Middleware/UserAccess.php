@@ -22,6 +22,6 @@ class UserAccess
         }
 
         return response()->json(['Você não tem permissão para acessar esta página.']);
-        /* return response()->view('errors.check-permission'); */
+        /*return response()->view('errors.check-permission');*/
     }
 }

@@ -14,9 +14,9 @@ class Curriculo extends Model
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-    public function inscricao_curriculo_user_edital(): BelongsTo
+    public function inscricao_curriculo_user_editals()
     {
-        return $this->belongsTo(Inscricao_curriculo_user_edital::class);
+        return $this->hasMany(Inscricao_curriculo_user_edital::class);
     }
 
     /**

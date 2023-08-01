@@ -12,11 +12,11 @@ class Edital extends Model
     /**
     * Get the user that owns the User
     *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    * @return \Illuminate\Database\Eloquent\Relations\hasMany
     */
-    public function inscricao_curriculo_user_edital(): BelongsTo
+    public function inscricao_curriculo_user_editals()
     {
-        return $this->belongsTo(Inscricao_curriculo_user_edital::class);
+        return $this->hasMany(Inscricao_curriculo_user_edital::class);
     }
 
     public function ofertas(): HasMany

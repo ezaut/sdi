@@ -1,0 +1,47 @@
+Para fazer o relacionamento entre entidades inscrição de concurso com o edital no Laravel 10, você pode usar o método belongsTo. Este método cria uma relação de um para muitos, o que significa que uma inscrição pode ter apenas um edital, mas um edital pode ter muitas inscrições.
+
+Por exemplo, se você tiver as seguintes tabelas no banco de dados:
+
+| tabela | coluna |
+|---|---|
+| inscrições | id |
+| inscrições | edital_id |
+| editais | id |
+| editais | nome |
+Você pode usar o seguinte código para criar o relacionamento entre as entidades:
+
+// no arquivo `app/Models/Inscrição.php`
+
+class Inscrição extends Model
+{
+    protected $guarded = [];
+
+    public function edital()
+    {
+        return $this->belongsTo(Edital::class);
+    }
+}
+
+// no arquivo `app/Models/Edital.php`
+
+class Edital extends Model
+{
+    protected $guarded = [];
+
+    public function inscrições()
+    {
+        return $this->hasMany(Inscrição::class);
+    }
+}
+Com este código, você pode acessar o edital de uma inscrição usando o método inscricao->edital e você pode acessar as inscrições de um edital usando o método edital->inscricoes.
+
+Por exemplo, o seguinte código retornará o edital de uma inscrição:
+
+$inscricao = Inscrição::find(1);
+
+$edital = $inscricao->edital;
+E o seguinte código retornará todas as inscrições de um edital:
+
+$edital = Edital::find(1);
+
+$inscricoes = $edital->inscricoes;

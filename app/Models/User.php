@@ -17,11 +17,11 @@ class User extends Authenticatable
     /**
      * The roles that belong to the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
-    public function inscricoes(): BelongsToMany
+    public function inscricao_curriculo_user_editals(): hasMany
     {
-        return $this->belongsToMany(Inscricao_curriculo_user_edital::class);
+        return $this->hasMany(Inscricao_curriculo_user_edital::class);
     }
 
     /**

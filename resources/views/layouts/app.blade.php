@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="/back/vendors/styles/icon-font.min.css" />
     <link rel="stylesheet" type="text/css" href="/back/src/plugins/jquery-steps/jquery.steps.css" />
     <link rel="stylesheet" type="text/css" href="/back/vendors/styles/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     @stack('stylesheets')
 </head>
 
@@ -160,11 +161,13 @@
             </div>
             @else
             <div class="btn-list">
-                <a type="button" name="" id="" type="button" class="btn btn-primary" role="button" href="{{ route('login') }}">Login</a>
+                <a type="button" name="" id="" type="button" class="btn btn-primary" role="button"
+                    href="{{ route('login') }}">Login</a>
             </div>
             @if (Route::has('register'))
             <div class="btn-list">
-                <a type="button" name="" id="" class="btn btn-primary" role="button" href="{{ route('register') }}">Cadastrar</a>
+                <a type="button" name="" id="" class="btn btn-primary" role="button"
+                    href="{{ route('register') }}">Cadastrar</a>
             </div>
             @endif
             @endauth
@@ -308,6 +311,22 @@
                             <li><a href="index3.html">Dashboard style 3</a></li>
                         </ul>
                     </li>
+
+                    @auth
+                    @if ( Auth::user()->type == 'servidor' )
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-house"></span><span class="text">Adicionar</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="{{ url('ajax-crud-datatable')}}">Inscrição</a></li>
+                            <li><a href="index2.html">Edital</a></li>
+                            <li><a href="index3.html">Ofertas</a></li>
+                            <li><a href="index3.html">Pontuações</a></li>
+                        </ul>
+                    </li>
+                    @endif
+                    @endauth
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-textarea-resize"></span><span class="mtext">Forms</span>
@@ -518,10 +537,11 @@
                             </nav>
                         </div>
                         <div class="col-md-6 col-sm-12 text-right">
-                           {{-- @if (Route::has('login'))
+                            {{-- @if (Route::has('login'))
 
                             @auth
-                            <a name="" id="" class="btn btn-primary" role="button" href="{{ url('/home_sead') }}">Home</a>
+                            <a name="" id="" class="btn btn-primary" role="button"
+                                href="{{ url('/home_sead') }}">Home</a>
                             @else
                             <a name="" id="" class="btn btn-primary" role="button" href="{{ route('login') }}">Login</a>
 
@@ -555,6 +575,8 @@
     <script src="/back/src/plugins/jquery-steps/jquery.steps.js"></script>
     <script src="/back/vendors/scripts/steps-setting.js"></script>
     <script src="/back/vendors/scripts/jquery.mask.js"></script>
+    <script src="/back/src/plugins/sweetalert2/sweetalert2.all.js"></script>
+    <script src="/back/src/plugins/sweetalert2/sweet-alert.init.js"></script>
     <script>
         if (navigator.userAgent.indexOf("Firefox") != -1) {
                     history.pushState(null, null, document.URL);

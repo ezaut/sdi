@@ -31,7 +31,7 @@ return new class extends Migration
             $table->date('dt_emissao')->nullable();
             $table->string('telefone')->nullable();
             $table->char('sexo', 1 )->nullable();
-            $table->boolean('type')->default(false); //add type boolean Users: 0=>User, 1=>Admin, 2=>Manager
+            $table->boolean('type')->default(false); //add type boolean Users: 0=>User, 1=>Admin, 2=>Servidor
             $table->rememberToken();
             $table->timestamps();
         });

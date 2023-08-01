@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('arquivo_documento', 100)->nullable();
             $table->integer('pontos')->unsigned()->nullable()->default(0);
             $table->boolean('valido_invalido')->nullable()->default(false);
-            $table->foreignId('inscricao_id')->constrained( table: 'inscricao_curriculos_users_editals', indexName: 'curriculos_inscricao_id');
             $table->timestamps();
         });
     }

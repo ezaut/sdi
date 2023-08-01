@@ -12,22 +12,26 @@ class Inscricao_curriculo_user_edital extends Model
     /**
      * The users that belong to the Inscricao_curriculo_user_edital
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function users(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function curriculos(): HasMany
+    public function curriculo()
     {
-        return $this->hasMany(Curriculo::class);
+        return $this->belongsTo(Curriculo::class);
     }
 
-    public function editals(): HasMany
+    public function edital()
+    {
+        return $this->belongsTo(Edital::class);
+    }
+    /*public function editals(): HasMany
     {
         return $this->hasMany(Edital::class);
-    }
+    }*/
 
     /**
      * The attributes that are mass assignable.

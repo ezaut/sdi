@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\inscricao_curriculo_user_edital;
+use App\Models\Inscricao_curriculo_user_edital;
 use Illuminate\Http\Request;
+use Datatables;
 
 class InscricaoCurriculoUserEditalController extends Controller
 {
@@ -12,7 +13,14 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()) {
+            return datatables()->of(Inscricao_curriculo_user_edital::select('*'))
+            ->addColumn('action', 'servidor/actions/inscricao-action')
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('servidor.actions.index');
     }
 
     /**
@@ -28,13 +36,24 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inscricaoId = $request->inscricao_id;
+
+        $incricao   =   Inscricao_curriculo_user_edital::updateOrCreate(
+                    [
+                     'inscricao_id' => $inscricaoId
+                    ],
+                    [
+                    'vaga_escolhida' => $request->vaga_escolhida,
+
+                    ]);
+
+        return Response()->json($inscricao);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Inscricao_curriculo_user_edital $inscricao_curriculos_users_editals)
+    public function show(Inscricao_curriculo_user_edital $inscricao)
     {
         //
     }
@@ -42,15 +61,18 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Inscricao_curriculo_user_edital $inscricao_curriculos_users_editals)
+    public function edit(Request $request)
     {
-        //
+        $where = array('inscricao_id' => $request->inscricao_id);
+        $inscricao  = Inscricao_curriculo_user_edital::where($where)->first();
+
+        return Response()->json($inscricao);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Inscricao_curriculo_user_edital $inscricao_curriculos_users_editals)
+    public function update(Request $request, Inscricao_curriculo_user_edital $inscricao)
     {
         //
     }
@@ -58,8 +80,10 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Inscricao_curriculo_user_edital $inscricao_curriculos_users_editals)
+    public function destroy(Request $request)
     {
-        //
+        $inscricao = Inscricao_curriculo_user_edital::where('inscricao_id',$request->inscricao_id)->delete();
+
+        return Response()->json($inscricao);
     }
 }
