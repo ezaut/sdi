@@ -136,8 +136,8 @@
                     $('.editEdital').find('form')[0].reset();
                     $('.editEdital').find('span.error-text').text('');
                     $.post('<?= route("get.edital.details") ?>',{id_edital:id_edital}, function(data){
-                        //  alert(data.details.edital_name);
-                        $('.editEdital').find('input[name="id_edital"]').val(data.details.id_edital);
+                          alert(data.details.nome_edital);
+                        //$('.editEdital').find('input[name="id_edital"]').val(data.details.id_edital);
                         $('.editEdital').find('input[name="nome_edital"]').val(data.details.nome_edital);
                         $('.editEdital').find('input[name="dt_inicio"]').val(data.details.dt_inicio);
                         $('.editEdital').find('input[name="dt_fim"]').val(data.details.dt_fim);

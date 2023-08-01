@@ -1,0 +1,21 @@
+Deverá então utilizar o método where.
+
+Se a coluna código tem valores únicos ao invés de $produto = Produtos::find($id) use $produto = Produtos::where('codigo', $codigo)->first()
+
+Vai ter que mudar na sua view para invés de passar o id passar o código como argumento.
+
+Mude na função show o parâmetro para $codigo.
+
+public function show($codigo)
+{
+    $produto = Produtos::where('codigo', $codigo)->first();
+    return view('produtos.produtosShow', array('produto' => $produto));
+}
+
+O método find do Eloquent pesquisa pela chave primária. Se quiser pesquisar por outra coluna, use o método ->where()
+
+public function show($cod)
+{
+    $produto = Produtos::where('codigo', $cod)->first();
+    return view('produtos.produtosShow', ['produto' => $produto]);
+}
