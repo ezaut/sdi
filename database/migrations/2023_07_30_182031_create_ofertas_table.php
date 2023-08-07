@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ofertas', function (Blueprint $table) {
-            $table->bigIncrements('id_ofertas');
+            $table->id();
             $table->string('curso', 100);
             $table->string('disciplina', 100);
             $table->integer('carga_horaria')->unsigned()->nullable()->default(60);
-            $table->foreignId('id_edital')->constrained( table: 'editals', indexName: 'ofertas_id_edital');
+            $table->foreignId('edital_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

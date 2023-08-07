@@ -9,6 +9,19 @@ class Edital extends Model
 {
     use HasFactory;
 
+    //protected $primaryKey = 'id_edital';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+     protected $fillable = [
+        'nome_edital',
+        'dt_inicio',
+        'dt_fim'
+    ];
+
     /**
     * Get the user that owns the User
     *
@@ -23,17 +36,4 @@ class Edital extends Model
     {
         return $this->hasMany(Oferta::class);
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-     protected $fillable = [
-        'id_edital',
-        'nome_edital',
-        'dt_inicio',
-        'dt_fim'
-
-    ];
 }

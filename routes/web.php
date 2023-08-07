@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InscricaoCurriculoUserEditalController;
 use App\Http\Controllers\EditalController;
+use App\Http\Controllers\OfertaController;
+
 
 
 /*Route::get('/', function () {
@@ -17,13 +19,22 @@ Route::get('/', function () {
 Route::get('/home_sead', function () {
     return view('home_sead');
 });
-
+//Edital Rotas
 Route::get('/edital-list', [EditalController::class, 'index'])->name('edital.list');
 Route::post('/add-edital',[EditalController::class,'addEdital'])->name('add.edital');
 Route::get('/getEditaisList',[EditalController::class, 'getEditaisList'])->name('get.editais.list');
 Route::post('/getEditalDetails',[EditalController::class, 'getEditalDetails'])->name('get.edital.details');
 Route::post('/updateEditalDetails',[EditalController::class, 'updateEditalDetails'])->name('update.edital.details');
 Route::post('/deleteEdital',[EditalController::class,'deleteEdital'])->name('delete.edital');
+
+//Oferta Rotas
+Route::get('/oferta-list', [OfertaController::class, 'index'])->name('oferta.list');
+Route::post('/add-oferta',[OfertaController::class,'addOferta'])->name('add.oferta');
+Route::get('/getOfertasList',[OfertaController::class, 'getOfertasList'])->name('get.ofertas.list');
+Route::post('/getOfertaDetails',[OfertaController::class, 'getOfertaDetails'])->name('get.oferta.details');
+Route::post('/updateOfertaDetails',[OfertaController::class, 'updateOfertaDetails'])->name('update.oferta.details');
+Route::post('/deleteOferta',[OfertaController::class,'deleteOferta'])->name('delete.oferta');
+
 
 Auth::routes();
 

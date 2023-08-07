@@ -9,15 +9,7 @@ class Oferta extends Model
 {
     use HasFactory;
 
-    public function edital(): BelongsTo
-    {
-        return $this->belongsTo(Edital::class);
-    }
-
-    public function pontuacoes(): HasMany
-    {
-        return $this->hasMany(Pontuacoe::class);
-    }
+    //protected $primaryKey = 'id_oferta';
 
     /**
      * The attributes that are mass assignable.
@@ -25,10 +17,19 @@ class Oferta extends Model
      * @var array<int, string>
      */
      protected $fillable = [
-        'id_ofertas',
         'curso',
         'disciplina',
-        'carga_horaria'
-
+        'carga_horaria',
+        'edital_id'
     ];
+
+    public function edital()
+    {
+        return $this->belongsTo(Edital::class);
+    }
+
+    public function pontuacoes()
+    {
+        return $this->hasMany(Pontuacoe::class);
+    }
 }

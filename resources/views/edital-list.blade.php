@@ -123,7 +123,7 @@
                      "aLengthMenu":[[5,10,25,50,-1],[5,10,25,50,"All"]],
                      columns:[
                         //  {data:'id', name:'id'},
-                         {data:'id_edital', name:'id_edital'},
+                         {data:'DT_RowIndex', name:'DT_RowIndex'},
                          {data:'nome_edital', name:'nome_edital'},
                          {data:'dt_inicio', name:'dt_inicio'},
                          {data:'dt_fim', name:'dt_fim'},
@@ -132,12 +132,12 @@
                 });
 
                 $(document).on('click','#editEditalBtn', function(){
-                    var id_edital = $(this).data('id_edital');
+                    var id = $(this).data('id');
                     $('.editEdital').find('form')[0].reset();
                     $('.editEdital').find('span.error-text').text('');
-                    $.post('<?= route("get.edital.details") ?>',{id_edital:id_edital}, function(data){
-                          alert(data.details.nome_edital);
-                        //$('.editEdital').find('input[name="id_edital"]').val(data.details.id_edital);
+                    $.post('<?= route("get.edital.details") ?>',{id:id}, function(data){
+                          //alert(data.details.id);
+                        $('.editEdital').find('input[name="eid"]').val(data.details.id);
                         $('.editEdital').find('input[name="nome_edital"]').val(data.details.nome_edital);
                         $('.editEdital').find('input[name="dt_inicio"]').val(data.details.dt_inicio);
                         $('.editEdital').find('input[name="dt_fim"]').val(data.details.dt_fim);
@@ -177,7 +177,7 @@
 
                 //DELETE EDITAL RECORD
                 $(document).on('click','#deleteEditalBtn', function(){
-                    var id_edital = $(this).data('id_edital');
+                    var id = $(this).data('id');
                     var url = '<?= route("delete.edital") ?>';
 
                     swal.fire({
@@ -193,7 +193,7 @@
                          allowOutsideClick:false
                     }).then(function(result){
                           if(result.value){
-                              $.post(url,{id_edital:id_edital}, function(data){
+                              $.post(url,{id:id}, function(data){
                                    if(data.code == 1){
                                        $('#editais-table').DataTable().ajax.reload(null, false);
                                        toastr.success(data.msg);

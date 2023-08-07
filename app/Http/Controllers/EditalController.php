@@ -48,8 +48,8 @@ class EditalController extends Controller
                               ->addIndexColumn()
                               ->addColumn('actions', function($row){
                                   return '<div class="btn-group">
-                                                <button class="btn btn-sm btn-primary" data-id_edital="'.$row['id_edital'].'" id="editEditalBtn">Update</button>
-                                                <button class="btn btn-sm btn-danger" data-id_edital="'.$row['id_edital'].'" id="deleteEditalBtn">Delete</button>
+                                                <button class="btn btn-sm btn-primary" data-id="'.$row['id'].'" id="editEditalBtn">Update</button>
+                                                <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteEditalBtn">Delete</button>
                                           </div>';
                               })
                               ->rawColumns(['actions'])
@@ -58,17 +58,17 @@ class EditalController extends Controller
 
     //GET EDITAL DETAILS
     public function getEditalDetails(Request $request){
-        $id_edital = $request->id_edital;
-        $editalDetails = Edital::where('id_edital', $id_edital)->first();
+        $id = $request->id;
+        $editalDetails = Edital::find($id);
         return response()->json(['details'=>$editalDetails]);
     }
 
     //UPDATE EDITAL DETAILS
     public function updateEditalDetails(Request $request){
-        $id_edital = $request->id_edital;
+        $id = $request->eid;
 
         $validator = \Validator::make($request->all(),[
-            'nome_edital'=>'required|unique:editals,nome_edital,'.$id_edital,
+            'nome_edital'=>'required|unique:editals,nome_edital,'.$id,
             'dt_inicio'=>'required',
             'dt_fim'=>'required',
         ]);
@@ -77,7 +77,7 @@ class EditalController extends Controller
                return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
 
-            $edital = Edital::where('id_edital', $id_edital)->first();
+            $edital = Edital::find($id);
             $edital->nome_edital = $request->nome_edital;
             $edital->dt_inicio = $request->dt_inicio;
             $edital->dt_fim = $request->dt_fim;
@@ -93,60 +93,13 @@ class EditalController extends Controller
 
     // DELETE EDITAL RECORD
     public function deleteEdital(Request $request){
-        $id_edital = $request->id_edital;
-        $query = Edital::where('id_edital', $id_edital)->delete();
+        $id = $request->id;
+        $query = Edital::find($id)->delete();
 
         if($query){
             return response()->json(['code'=>1, 'msg'=>'O edital foi excluído do banco de dados']);
         }else{
             return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
         }
-    }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Edital $edital)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Edital $edital)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Edital $edital)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Edital $edital)
-    {
-        //
     }
 }

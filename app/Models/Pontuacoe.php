@@ -9,6 +9,8 @@ class Pontuacoe extends Model
 {
     use HasFactory;
 
+    //protected $primaryKey = 'id_pontuacao';
+
     public function oferta(): BelongsTo
     {
         return $this->belongsTo(Oferta::class);
@@ -20,10 +22,10 @@ class Pontuacoe extends Model
      * @var array<int, string>
      */
      protected $fillable = [
-        'id_pontuacao',
         'grupo',
         'pontos',
-        'descricao'
+        'descricao',
+        'oferta_id'
 
     ];
 }

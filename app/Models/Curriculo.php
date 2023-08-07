@@ -9,6 +9,9 @@ class Curriculo extends Model
 {
     use HasFactory;
 
+
+    //protected $primaryKey = 'id_curriculo';
+
     /**
     * Get the user that owns the User
     *
@@ -25,7 +28,6 @@ class Curriculo extends Model
      * @var array<int, string>
      */
      protected $fillable = [
-        'id_curriculo',
         'grupo',
         'descricao',
         'arquivo_documento',

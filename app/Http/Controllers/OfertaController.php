@@ -3,63 +3,113 @@
 namespace App\Http\Controllers;
 
 use App\Models\Oferta;
+use App\Models\Edital;
 use Illuminate\Http\Request;
+use DataTables;
 
 class OfertaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     public function index(Request $request)
     {
-        //
+        $ofertas = Oferta::with(['edital'])->get();
+        $editais = Edital::all();
+        return view('oferta-list', ['ofertas' => $ofertas, 'editais' => $editais, 'request' => $request->all() ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    //ADD NEW OFERTA
+    public function addOferta(Request $request){
+
+         $validator = \Validator::make($request->all(),[
+             'curso'=>'required|unique:ofertas',
+             'disciplina'=>'required',
+             'edital_id'=>'exists:editals,id'
+         ]);
+
+         if(!$validator->passes()){
+              return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+         }else{
+
+             /*$oferta = new Oferta();
+             $oferta->edital_id = $request->oferta->edital->id;
+             $oferta->curso = $request->curso;
+             $oferta->disciplina = $request->disciplina;
+             $oferta->carga_horaria = $request->carga_horaria;
+             $query = $oferta->save();*/
+             $query = Oferta::create($request->all());
+
+             if(!$query){
+                 return response()->json(['code'=>0,'msg'=>'Algo deu errado']);
+             }else{
+                 return response()->json(['code'=>1,'msg'=>'Nova oferta foi salva com sucesso']);
+             }
+         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    // GET ALL OFERTAS
+    public function getOfertasList(){
+          $ofertas = Oferta::with(['edital'])->get();
+
+          return DataTables::of($ofertas)
+                              ->addIndexColumn()
+                              ->addColumn('actions', function($row){
+                                  return '<div class="btn-group">
+                                                <button class="btn btn-sm btn-primary" data-id="'.$row['id'].'" id="editOfertaBtn">Update</button>
+                                                <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteOfertaBtn">Delete</button>
+                                          </div>';
+                              })
+                              ->rawColumns(['actions'])
+                              ->make(true);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Oferta $oferta)
-    {
-        //
+    //GET OFERTA DETAILS
+    public function getOfertaDetails(Request $request){
+        $id = $request->id;
+        $ofertaDetails = Oferta::find($id);
+        return response()->json(['details'=>$ofertaDetails]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Oferta $oferta)
-    {
-        //
+    //UPDATE OFERTA DETAILS
+    public function updateOfertaDetails(Request $request){
+        $id = $request->oid;
+
+        $validator = \Validator::make($request->all(),[
+            'curso'=>'required|unique:ofertas,curso,'.$id,
+            'disciplina'=>'required',
+            'edital_id'=>'exists:editals,id'
+
+        ]);
+
+        if(!$validator->passes()){
+               return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+        }else{
+
+            /*$oferta = Oferta::find($id);
+            $oferta->curso = $request->curso;
+            $oferta->disciplina = $request->disciplina;
+            $oferta->carga_horaria = $request->carga_horaria;
+            $oferta->edital_id = $request->edital->id;
+            $query = $oferta->save();*/
+            $query = Oferta::create($request->all());
+            if($query){
+                return response()->json(['code'=>1, 'msg'=>'Os detalhes de ofertas foram atualizados']);
+            }else{
+                return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
+            }
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Oferta $oferta)
-    {
-        //
-    }
+    // DELETE OFERTA RECORD
+    public function deleteOferta(Request $request){
+        $id = $request->id;
+        $query = Oferta::find($id)->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Oferta $oferta)
-    {
-        //
+        if($query){
+            return response()->json(['code'=>1, 'msg'=>'A oferta foi excluída do banco de dados']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
+        }
     }
 }

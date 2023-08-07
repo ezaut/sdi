@@ -10,7 +10,7 @@
             <div class="modal-body">
                  <form action="<?= route('update.edital.details') ?>" method="post" id="update-edital-form">
                     @csrf
-                     <input type="hidden" name="id_edital">
+                     <input type="hidden" name="eid">
                      <div class="form-group">
                          <label for="">Nome do edital</label>
                          <input type="text" class="form-control" name="nome_edital" placeholder="Nome do edital">

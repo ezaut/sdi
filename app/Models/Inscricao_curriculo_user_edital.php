@@ -9,6 +9,9 @@ class Inscricao_curriculo_user_edital extends Model
 {
     use HasFactory;
 
+
+    //protected $primaryKey = 'id_inscricao';
+
     /**
      * The users that belong to the Inscricao_curriculo_user_edital
      *
@@ -39,7 +42,6 @@ class Inscricao_curriculo_user_edital extends Model
      * @var array<int, string>
      */
      protected $fillable = [
-        'inscricao_id',
         'vaga_escolhida',
         'dt_inscricao'
 
