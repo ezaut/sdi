@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Ofertas</title>
+    <title>Listar Pontuacoes</title>
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('datatable/css/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('datatable/css/dataTables.bootstrap4.min.css') }}">
@@ -19,16 +19,17 @@
         <div class="row" style="margin-top: 45px">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Ofertas</div>
+                    <div class="card-header">Pontuações</div>
                     <div class="card-body" >
-                        <table class="table table-hover table-condensed" id="ofertas-table">
+                        <table class="table table-hover table-condensed" id="pontuacoes-table">
                             <thead>
                                 <th>#</th>
-                                <th>Edital</th>
-                                <th>Curso</th>
-                                <th>Disciplina</th>
-                                <th>Carga horária</th>
-                                <th>ID do Edital</th>
+                                <th>Oferta</th>
+                                <th>Grupo</th>
+                                <th>Pontos</th>
+                                <th>Pontuação máxima</th>
+                                <th>Descrição</th>
+                                <th>ID do Oferta</th>
                                 <th>Actions</th>
                             </thead>
                             <tbody>
@@ -40,33 +41,39 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header">Adicionar nova Oferta</div>
+                    <div class="card-header">Adicionar nova Pontuação</div>
                     <div class="card-body">
-                        <form action="{{ route('add.oferta') }}" method="post" id="add-oferta-form" autocomplete="off">
+                        <form action="{{ route('add.pontuacoe') }}" method="post" id="add-pontuacoe-form" autocomplete="off">
                             @csrf
-                            <select name="edital_id">
-                                <option>-- Selecione um Edital --</option>
-                                @foreach($editais as $edital)
-                                <option value="{{ $edital->id }}" {{ ($oferta->edital_id ?? old('edital_id')) ==
-                                    $edital->id ? 'selected' : '' }} >{{ $edital->nome_edital }}</option>
+                            <select name="oferta_id">
+                                <option>-- Selecione uma Oferta --</option>
+                                @foreach($ofertas as $oferta)
+                                <option value="{{ $oferta->id }}" {{ ($pontuacoe->oferta_id ?? old('oferta_id')) ==
+                                    $oferta->id ? 'selected' : '' }} >{{ $oferta->curso }}</option>
                                 @endforeach
                             </select>
-                            <span class="text-danger error-text edital_id_error"></span>
+                            <span class="text-danger error-text oferta_id_error"></span>
                             <div class="form-group">
-                                <label for="">Nome do curso</label>
-                                <input type="text" class="form-control" name="curso" placeholder="Nome do curso">
-                                <span class="text-danger error-text curso_error"></span>
+                                <label for="">Grupo</label>
+                                <input type="text" class="form-control" name="grupo" placeholder="Nome do grupo">
+                                <span class="text-danger error-text grupo_error"></span>
                             </div>
                             <div class="form-group">
-                                <label for="">Disciplina</label>
-                                <input type="text" class="form-control" name="disciplina" placeholder="Disciplina">
-                                <span class="text-danger error-text disciplina_error"></span>
+                                <label for="">Pontos</label>
+                                <input type="numeric" class="form-control" name="pontos" placeholder="Pontos">
+                                <span class="text-danger error-text pontos_error"></span>
                             </div>
                             <div class="form-group">
-                                <label for="">Carga horária</label>
-                                <input type="numeric" class="form-control" name="carga_horaria"
-                                    placeholder="Carga horária">
-                                <span class="text-danger error-text carga_horaria_error"></span>
+                                <label for="">Pontuação máxima</label>
+                                <input type="numeric" class="form-control" name="pontuacao_max" placeholder="Pontuação máxima">
+                                <span class="text-danger error-text pontuacao_max_error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Descrição</label>
+                                <textarea name="descricao" id="" cols="40" rows="5">
+
+                                </textarea>
+                                <span class="text-danger error-text descricao_error"></span>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-block btn-success">SALVAR</button>
@@ -79,7 +86,7 @@
 
     </div>
 
-    @include('edit-oferta-modal')
+    @include('edit-pontuacoe-modal')
     <script src="{{ asset('jquery/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -99,8 +106,8 @@
 
          $(function(){
 
-                //ADD NEW oferta
-                $('#add-oferta-form').on('submit', function(e){
+                //ADD NEW PONTUAÇÕES
+                $('#add-pontuacoe-form').on('submit', function(e){
                     e.preventDefault();
                     var form = this;
                     $.ajax({
@@ -121,52 +128,54 @@
                              }else{
                                  $(form)[0].reset();
                                 //  alert(data.msg);
-                                $('#ofertas-table').DataTable().ajax.reload(null, false);
+                                $('#pontuacoes-table').DataTable().ajax.reload(null, false);
                                 toastr.success(data.msg);
                              }
                         }
                     });
                 });
 
-                //GET ALL ofertas
-                $('#ofertas-table').DataTable({
+                //GET ALL PONTUAÇÕES
+                $('#pontuacoes-table').DataTable({
                      processing:true,
                      info:true,
-                     ajax:"{{ route('get.ofertas.list') }}",
+                     ajax:"{{ route('get.pontuacoes.list') }}",
                      "pageLength":5,
                      "aLengthMenu":[[5,10,25,50,-1],[5,10,25,50,"All"]],
                      columns:[
                         //  {data:'id', name:'id'},
                          {data:'DT_RowIndex', name:'DT_RowIndex'},
-                         {data:'edital.nome_edital', name:'edital.nome_edital'},
-                         {data:'curso', name:'curso'},
-                         {data:'disciplina', name:'disciplina'},
-                         {data:'carga_horaria', name:'carga_horaria'},
-                         {data:'edital_id', name:'edital_id'},
+                         {data:'oferta.curso', name:'oferta.curso'},
+                         {data:'grupo', name:'grupo'},
+                         {data:'pontos', name:'pontos'},
+                         {data:'pontuacao_max', name:'pontuacao_max'},
+                         {data:'descricao', name:'descricao'},
+                         {data:'oferta_id', name:'oferta_id'},
                          {data:'actions', name:'actions'},
 
                      ]
 
                 });
 
-                $(document).on('click','#editOfertaBtn', function(){
+                $(document).on('click','#editPontuacoeBtn', function(){
                     var id = $(this).data('id');
-                    $('.editOferta').find('form')[0].reset();
-                    $('.editOferta').find('span.error-text').text('');
-                    $.post('<?= route("get.oferta.details") ?>',{id:id}, function(data){
+                    $('.editPontuacoe').find('form')[0].reset();
+                    $('.editPontuacoe').find('span.error-text').text('');
+                    $.post('<?= route("get.pontuacoe.details") ?>',{id:id}, function(data){
                           //alert(data.details.id);
-                        $('.editOferta').find('input[name="oid"]').val(data.details.id);
-                        $('.editOferta').find('input[name="curso"]').val(data.details.curso);
-                        $('.editOferta').find('input[name="disciplina"]').val(data.details.disciplina);
-                        $('.editOferta').find('input[name="carga_horaria"]').val(data.details.carga_horaria);
-                        $('.editOferta').find('input[name="edital_id"]').val(data.details.edital_id);
-                        $('.editOferta').modal('show');
+                        $('.editPontuacoe').find('input[name="pid"]').val(data.details.id);
+                        $('.editPontuacoe').find('input[name="grupo"]').val(data.details.grupo);
+                        $('.editPontuacoe').find('input[name="pontos"]').val(data.details.pontos);
+                        $('.editPontuacoe').find('input[name="pontuacao_max"]').val(data.details.pontuacao_max);
+                        $('.editPontuacoe').find('input[name="descricao"]').val(data.details.descricao);
+                        $('.editPontuacoe').find('input[name="oferta_id"]').val(data.details.oferta_id);
+                        $('.editPontuacoe').modal('show');
                     },'json');
                 });
 
 
-                //UPDATE OFERTA DETAILS
-                $('#update-oferta-form').on('submit', function(e){
+                //UPDATE PONTUAÇÃO DETAILS
+                $('#update-pontuacoe-form').on('submit', function(e){
                     e.preventDefault();
                     var form = this;
                     $.ajax({
@@ -185,23 +194,23 @@
                                       $(form).find('span.'+prefix+'_error').text(val[0]);
                                   });
                               }else{
-                                  $('#ofertas-table').DataTable().ajax.reload(null, false);
-                                  $('.editOferta').modal('hide');
-                                  $('.editOferta').find('form')[0].reset();
+                                  $('#pontuacoes-table').DataTable().ajax.reload(null, false);
+                                  $('.editPontuacoe').modal('hide');
+                                  $('.editPontuacoe').find('form')[0].reset();
                                   toastr.success(data.msg);
                               }
                         }
                     });
                 });
 
-                //DELETE OFERTA RECORD
-                $(document).on('click','#deleteOfertaBtn', function(){
+                //DELETE PONTUAÇÃO RECORD
+                $(document).on('click','#deletePontuacoeBtn', function(){
                     var id = $(this).data('id');
-                    var url = '<?= route("delete.oferta") ?>';
+                    var url = '<?= route("delete.pontuacoe") ?>';
 
                     swal.fire({
                          title:'Tem certeza?',
-                         html:'Você deseja <b>excluir</b> esta oferta?',
+                         html:'Você deseja <b>excluir</b> esta pontuacão?',
                          showCancelButton:true,
                          showCloseButton:true,
                          cancelButtonText:'Cancelar',
@@ -214,7 +223,7 @@
                           if(result.value){
                               $.post(url,{id:id}, function(data){
                                    if(data.code == 1){
-                                       $('#ofertas-table').DataTable().ajax.reload(null, false);
+                                       $('#pontuacoes-table').DataTable().ajax.reload(null, false);
                                        toastr.success(data.msg);
                                    }else{
                                        toastr.error(data.msg);

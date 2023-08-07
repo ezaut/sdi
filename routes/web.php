@@ -35,6 +35,14 @@ Route::post('/getOfertaDetails',[OfertaController::class, 'getOfertaDetails'])->
 Route::post('/updateOfertaDetails',[OfertaController::class, 'updateOfertaDetails'])->name('update.oferta.details');
 Route::post('/deleteOferta',[OfertaController::class,'deleteOferta'])->name('delete.oferta');
 
+//Pontuacoe Rotas
+Route::get('/pontuacoe-list', 'App\Http\Controllers\PontuacoeController@index')->name('pontuacoe.list');
+Route::post('/add-pontuacoe',[PontuacoeController::class,'addPontuacoe'])->name('add.pontuacoe');
+Route::get('/getPontuacoesList',[PontuacoeController::class, 'getPontuacoesList'])->name('get.pontuacoes.list');
+Route::post('/getPontuacoeDetails',[PontuacoeController::class, 'getPontuacoeDetails'])->name('get.pontuacoe.details');
+Route::post('/updatePontuacoeDetails',[PontuacoeController::class, 'updatePontuacoeDetails'])->name('update.pontuacoe.details');
+Route::post('/deletePontuacoe',[PontuacoeController::class,'deletePontuacoe'])->name('delete.pontuacoe');
+
 
 Auth::routes();
 

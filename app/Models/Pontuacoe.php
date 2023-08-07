@@ -24,6 +24,7 @@ class Pontuacoe extends Model
      protected $fillable = [
         'grupo',
         'pontos',
+        'pontuacao_max',
         'descricao',
         'oferta_id'
 

@@ -32,12 +32,6 @@ class OfertaController extends Controller
               return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
          }else{
 
-             /*$oferta = new Oferta();
-             $oferta->edital_id = $request->oferta->edital->id;
-             $oferta->curso = $request->curso;
-             $oferta->disciplina = $request->disciplina;
-             $oferta->carga_horaria = $request->carga_horaria;
-             $query = $oferta->save();*/
              $query = Oferta::create($request->all());
 
              if(!$query){
@@ -50,7 +44,7 @@ class OfertaController extends Controller
 
     // GET ALL OFERTAS
     public function getOfertasList(){
-          $ofertas = Oferta::with(['edital'])->get();
+          $ofertas = Oferta::with('edital')->get();
 
           return DataTables::of($ofertas)
                               ->addIndexColumn()
@@ -86,13 +80,7 @@ class OfertaController extends Controller
                return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
 
-            /*$oferta = Oferta::find($id);
-            $oferta->curso = $request->curso;
-            $oferta->disciplina = $request->disciplina;
-            $oferta->carga_horaria = $request->carga_horaria;
-            $oferta->edital_id = $request->edital->id;
-            $query = $oferta->save();*/
-            $query = Oferta::create($request->all());
+            $query = Oferta::find($id)->update($request->all());
             if($query){
                 return response()->json(['code'=>1, 'msg'=>'Os detalhes de ofertas foram atualizados']);
             }else{
