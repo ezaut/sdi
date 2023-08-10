@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Inscricao_curriculo_user_edital extends Model
 {
@@ -22,12 +23,12 @@ class Inscricao_curriculo_user_edital extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function curriculo()
+    public function curriculo(): BelongsTo
     {
         return $this->belongsTo(Curriculo::class);
     }
 
-    public function edital()
+    public function edital(): BelongsTo
     {
         return $this->belongsTo(Edital::class);
     }

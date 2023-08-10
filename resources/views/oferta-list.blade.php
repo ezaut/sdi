@@ -20,7 +20,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Ofertas</div>
-                    <div class="card-body" >
+                    <div class="card-body">
                         <table class="table table-hover table-condensed" id="ofertas-table">
                             <thead>
                                 <th>#</th>
@@ -135,6 +135,9 @@
                      ajax:"{{ route('get.ofertas.list') }}",
                      "pageLength":5,
                      "aLengthMenu":[[5,10,25,50,-1],[5,10,25,50,"All"]],
+                     "language": {
+                            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+		                },
                      columns:[
                         //  {data:'id', name:'id'},
                          {data:'DT_RowIndex', name:'DT_RowIndex'},

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InscricaoCurriculoUserEditalController;
 use App\Http\Controllers\EditalController;
 use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\PontuacoeController;
 
 
 
@@ -15,6 +16,10 @@ use App\Http\Controllers\OfertaController;
 Route::get('/', function () {
     return view('home_sead');
 });
+
+Route::resource('/edital', EditalController::class);
+Route::resource('/oferta', OfertaController::class);
+Route::resource('/pontuacao', PontuacoeController::class);
 
 Route::get('/home_sead', function () {
     return view('home_sead');
@@ -36,7 +41,7 @@ Route::post('/updateOfertaDetails',[OfertaController::class, 'updateOfertaDetail
 Route::post('/deleteOferta',[OfertaController::class,'deleteOferta'])->name('delete.oferta');
 
 //Pontuacoe Rotas
-Route::get('/pontuacoe-list', 'App\Http\Controllers\PontuacoeController@index')->name('pontuacoe.list');
+Route::get('/pontuacoe-list', [PontuacoeController::class, 'index'])->name('pontuacoe.list');
 Route::post('/add-pontuacoe',[PontuacoeController::class,'addPontuacoe'])->name('add.pontuacoe');
 Route::get('/getPontuacoesList',[PontuacoeController::class, 'getPontuacoesList'])->name('get.pontuacoes.list');
 Route::post('/getPontuacoeDetails',[PontuacoeController::class, 'getPontuacoeDetails'])->name('get.pontuacoe.details');

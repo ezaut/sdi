@@ -14,90 +14,107 @@ class OfertaController extends Controller
      */
      public function index(Request $request)
     {
-        $ofertas = Oferta::with(['edital'])->get();
+        $oferta = Oferta::with(['edital'])->orderBy('created_at', 'DESC')->get();
+
+
+        return view('oferta.index', compact('oferta', 'request'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
         $editais = Edital::all();
-        return view('oferta-list', ['ofertas' => $ofertas, 'editais' => $editais, 'request' => $request->all() ]);
+        return view('oferta.create', compact('editais'));
     }
 
-    //ADD NEW OFERTA
-    public function addOferta(Request $request){
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $regras = [
+            'curso'      =>'required|unique:ofertas',
+            'disciplina' =>'required',
+            'edital_id'  =>'exists:editals,id'
 
-         $validator = \Validator::make($request->all(),[
-             'curso'=>'required|unique:ofertas',
-             'disciplina'=>'required',
-             'edital_id'=>'exists:editals,id'
-         ]);
+        ];
 
-         if(!$validator->passes()){
-              return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
-         }else{
+        $feedback = [
+            'required'           => 'O campo :attribute deve ser preenchido',
+            'edital_id.exists'   => 'O campo :attribute selecionado é inválido.',
+            'unique'             => 'O campo :attribute já está sendo utilizado.',
+        ];
 
-             $query = Oferta::create($request->all());
+        $request->validate($regras, $feedback);
 
-             if(!$query){
-                 return response()->json(['code'=>0,'msg'=>'Algo deu errado']);
-             }else{
-                 return response()->json(['code'=>1,'msg'=>'Nova oferta foi salva com sucesso']);
-             }
-         }
+        Oferta::create($request->all());
+
+        return redirect()->route('oferta.index')->with('success', 'A oferta foi adicionada com sucesso');
+
+
     }
 
-    // GET ALL OFERTAS
-    public function getOfertasList(){
-          $ofertas = Oferta::with('edital')->get();
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $oferta = Oferta::findOrFail($id);
 
-          return DataTables::of($ofertas)
-                              ->addIndexColumn()
-                              ->addColumn('actions', function($row){
-                                  return '<div class="btn-group">
-                                                <button class="btn btn-sm btn-primary" data-id="'.$row['id'].'" id="editOfertaBtn">Update</button>
-                                                <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteOfertaBtn">Delete</button>
-                                          </div>';
-                              })
-                              ->rawColumns(['actions'])
-                              ->make(true);
+        return view('oferta.show', compact('oferta'));
     }
 
-    //GET OFERTA DETAILS
-    public function getOfertaDetails(Request $request){
-        $id = $request->id;
-        $ofertaDetails = Oferta::find($id);
-        return response()->json(['details'=>$ofertaDetails]);
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $oferta = Oferta::findOrFail($id);
+        $editais = Edital::all();
+
+        return view('oferta.edit', compact('oferta', 'editais'));
     }
 
-    //UPDATE OFERTA DETAILS
-    public function updateOfertaDetails(Request $request){
-        $id = $request->oid;
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $regras = [
+            'curso'      =>'required|unique:ofertas',
+            'disciplina' =>'required',
+            'edital_id'  =>'exists:editals,id'
 
-        $validator = \Validator::make($request->all(),[
-            'curso'=>'required|unique:ofertas,curso,'.$id,
-            'disciplina'=>'required',
-            'edital_id'=>'exists:editals,id'
+        ];
 
-        ]);
+        $feedback = [
+            'required'           => 'O campo :attribute deve ser preenchido',
+            'edital_id.exists'   => 'O campo :attribute selecionado é inválido.',
+            'unique'             => 'O campo :attribute já está sendo utilizado.',
+        ];
 
-        if(!$validator->passes()){
-               return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
-        }else{
+        $request->validate($regras, $feedback);
 
-            $query = Oferta::find($id)->update($request->all());
-            if($query){
-                return response()->json(['code'=>1, 'msg'=>'Os detalhes de ofertas foram atualizados']);
-            }else{
-                return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
-            }
-        }
+        $oferta = Oferta::findOrFail($id);
+
+        $oferta->update($request->all());
+
+        return redirect()->route('oferta.index')->with('success', 'A oferta foi atualizada com sucesso');
+
     }
 
-    // DELETE OFERTA RECORD
-    public function deleteOferta(Request $request){
-        $id = $request->id;
-        $query = Oferta::find($id)->delete();
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $oferta = Oferta::findOrFail($id);
 
-        if($query){
-            return response()->json(['code'=>1, 'msg'=>'A oferta foi excluída do banco de dados']);
-        }else{
-            return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
-        }
+        $oferta->delete();
+
+        return redirect()->route('oferta.index')->with('success', 'A oferta foi excluída com sucesso');
     }
+
 }

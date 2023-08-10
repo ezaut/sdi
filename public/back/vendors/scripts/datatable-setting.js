@@ -7,13 +7,14 @@ $('document').ready(function(){
 			targets: "datatable-nosort",
 			orderable: false,
 		}],
-		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+		"lengthMenu": [[5,10,25,50,-1], [5,10,25,50,"All"]],
 		"language": {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
 			"info": "_START_-_END_ of _TOTAL_ entries",
 			searchPlaceholder: "Search",
 			paginate: {
 				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
+				previous: '<i class="ion-chevron-left"></i>'
 			}
 		},
 	});
@@ -28,11 +29,12 @@ $('document').ready(function(){
 		}],
 		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 		"language": {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
 			"info": "_START_-_END_ of _TOTAL_ entries",
 			searchPlaceholder: "Search",
 			paginate: {
 				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
+				previous: '<i class="ion-chevron-left"></i>'
 			}
 		},
 		dom: 'Bfrtp',
@@ -66,7 +68,7 @@ $('document').ready(function(){
 			searchPlaceholder: "Search",
 			paginate: {
 				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
+				previous: '<i class="ion-chevron-left"></i>'
 			}
 		},
 		'columnDefs': [{

@@ -14,96 +14,109 @@ class PontuacoeController extends Controller
      */
      public function index(Request $request)
     {
-        $pontuacoes = Pontuacoe::with(['oferta'])->get();
+        $pontuacao = Pontuacoe::with(['oferta'])->orderBy('created_at', 'DESC')->get();
+
+        return view('pontuacao.index', compact('pontuacao'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
         $ofertas = Oferta::all();
-        return view('pontuacoe-list', ['pontuacoes' => $pontuacoes, 'ofertas' => $ofertas, 'request' => $request->all() ]);
+        return view('pontuacao.create', compact('ofertas'));
     }
 
-    //ADD NEW PONTUAÇÃO
-    public function addPontuacoe(Request $request){
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $regras = [
+            'grupo'             =>'required|unique:pontuacoes',
+            'pontos'            =>'required',
+            'pontuacao_max'     =>'required',
+            'descricao'         =>'required',
+            'oferta_id'         =>'exists:ofertas,id'
 
-         $validator = \Validator::make($request->all(),[
-             'grupo'=>'required|unique:pontuacoes',
-             'pontos'=>'required',
-             'pontuacao_max'=>'required',
-             'descricao'=>'required',
-             'oferta_id'=>'exists:ofertas,id'
-         ]);
+        ];
 
-         if(!$validator->passes()){
-              return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
-         }else{
+        $feedback = [
+            'required'          => 'O campo :attribute deve ser preenchido',
+            'oferta_id.exists'  => 'O campo :attribute selecionado é inválido.',
+            'unique'            => 'O campo :attribute já está sendo utilizado.',
+        ];
 
-             $query = Pontuacoe::create($request->all());
+        $request->validate($regras, $feedback);
 
-             if(!$query){
-                 return response()->json(['code'=>0,'msg'=>'Algo deu errado']);
-             }else{
-                 return response()->json(['code'=>1,'msg'=>'Nova pontuação foi salva com sucesso']);
-             }
-         }
+        Pontuacoe::create($request->all());
+
+        return redirect()->route('pontuacao.index')->with('success', 'A pontuação foi adicionada com sucesso');
+
+
     }
 
-    // GET ALL PONTUAÇÕES
-    public function getPontuacoesList(){
-          $pontuacoes = Pontuacoe::with('oferta')->get();
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $pontuacao = Pontuacoe::findOrFail($id);
 
-          return DataTables::of($pontuacoes)
-                              ->addIndexColumn()
-                              ->addColumn('actions', function($row){
-                                  return '<div class="btn-group">
-                                                <button class="btn btn-sm btn-primary" data-id="'.$row['id'].'" id="editPontuacoeBtn">Update</button>
-                                                <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deletePontuacoeBtn">Delete</button>
-                                          </div>';
-                              })
-                              ->rawColumns(['actions'])
-                              ->make(true);
+        return view('pontuacao.show', compact('pontuacao'));
     }
 
-    //GET PONTUAÇÃO DETAILS
-    public function getPontuacoeDetails(Request $request){
-        $id = $request->id;
-        $pontuacoeDetails = Pontuacoe::find($id);
-        return response()->json(['details'=>$pontuacoeDetails]);
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $pontuacao = Pontuacoe::findOrFail($id);
+        $ofertas = Oferta::all();
+
+        return view('pontuacao.edit', compact('pontuacao', 'ofertas'));
     }
 
-    //UPDATE PONTUAÇÃO DETAILS
-    public function updatePontuacoeDetails(Request $request){
-        $id = $request->pid;
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $regras = [
+            'grupo'             =>'required|unique:pontuacoes',
+            'pontos'            =>'required',
+            'pontuacao_max'     =>'required',
+            'descricao'         =>'required',
+            'oferta_id'         =>'exists:ofertas,id'
 
-        $validator = \Validator::make($request->all(),[
-             'grupo'=>'required|unique:pontuacoes,grupo,'.$id,
-             'pontos'=>'required',
-             'pontuacao_max'=>'required',
-             'descricao'=>'required',
-             'oferta_id'=>'exists:ofertas,id'
+        ];
 
-        ]);
+        $feedback = [
+            'required'            => 'O campo :attribute deve ser preenchido.',
+            'oferta_id.exists'    => 'O campo :attribute selecionado é inválido.',
+            'unique'              => 'O campo :attribute já está sendo utilizado.',
+        ];
 
-        if(!$validator->passes()){
-               return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
-        }else{
+        $request->validate($regras, $feedback);
 
-            $query = Pontuacoe::find($id)->update($request->all());
-            if($query){
-                return response()->json(['code'=>1, 'msg'=>'Os detalhes de pontuações foram atualizados']);
-            }else{
-                return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
-            }
-        }
+        $pontuacao = Pontuacoe::findOrFail($id);
+
+        $pontuacao->update($request->all());
+
+        return redirect()->route('pontuacao.index')->with('success', 'A pontuação foi atualizada com sucesso');
+
     }
 
-    // DELETE PONTUAÇÃO RECORD
-    public function deletePontuacoe(Request $request){
-        $id = $request->id;
-        $query = Pontuacoe::find($id)->delete();
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $pontuacao = Pontuacoe::findOrFail($id);
 
-        if($query){
-            return response()->json(['code'=>1, 'msg'=>'A pontuação foi excluída do banco de dados']);
-        }else{
-            return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
-        }
+        $pontuacao->delete();
+
+        return redirect()->route('pontuacao.index')->with('success', 'A pontuação foi excluída com sucesso');
     }
-
-
 }

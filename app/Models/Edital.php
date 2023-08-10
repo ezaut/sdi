@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Edital extends Model
 {
@@ -27,7 +28,7 @@ class Edital extends Model
     *
     * @return \Illuminate\Database\Eloquent\Relations\hasMany
     */
-    public function inscricao_curriculo_user_editals()
+    public function inscricao_curriculo_user_editals(): HasMany
     {
         return $this->hasMany(Inscricao_curriculo_user_edital::class);
     }

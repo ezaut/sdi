@@ -13,93 +13,107 @@ class EditalController extends Controller
      */
     public function index()
     {
-        return view('edital-list');
+        $edital = Edital::orderBy('created_at', 'DESC')->get();
+
+        return view('edital.index', compact('edital'));
     }
 
-    //ADD NEW EDITAL
-    public function addEdital(Request $request){
-         $validator = \Validator::make($request->all(),[
-             'nome_edital'=>'required|unique:editals',
-             'dt_inicio'=>'required',
-             'dt_fim'=>'required',
-         ]);
-
-         if(!$validator->passes()){
-              return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
-         }else{
-             $edital = new Edital();
-             $edital->nome_edital = $request->nome_edital;
-             $edital->dt_inicio = $request->dt_inicio;
-             $edital->dt_fim = $request->dt_fim;
-             $query = $edital->save();
-
-             if(!$query){
-                 return response()->json(['code'=>0,'msg'=>'Algo deu errado']);
-             }else{
-                 return response()->json(['code'=>1,'msg'=>'Novo edital foi salvo com sucesso']);
-             }
-         }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('edital.create');
     }
 
-    // GET ALL EDITAIS
-    public function getEditaisList(){
-          $editals = Edital::all();
-          return DataTables::of($editals)
-                              ->addIndexColumn()
-                              ->addColumn('actions', function($row){
-                                  return '<div class="btn-group">
-                                                <button class="btn btn-sm btn-primary" data-id="'.$row['id'].'" id="editEditalBtn">Update</button>
-                                                <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteEditalBtn">Delete</button>
-                                          </div>';
-                              })
-                              ->rawColumns(['actions'])
-                              ->make(true);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $regras = [
+            'nome_edital' => 'required|min:3|max:40|unique:editals,nome_edital,',
+            'dt_inicio' => 'required',
+            'dt_fim' => 'required',
+
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'nome_edital.min' => 'O campo nome deve ter no mínimo 3 caracteres',
+            'nome_edital.max' => 'O campo nome deve ter no máximo 40 caracteres',
+            'unique' => 'O campo :attribute já está sendo utilizado.',
+        ];
+
+        $request->validate($regras, $feedback);
+
+        Edital::create($request->all());
+
+        return redirect()->route('edital.index')->with('success', 'Edital adicionado com sucesso');
+
+
     }
 
-    //GET EDITAL DETAILS
-    public function getEditalDetails(Request $request){
-        $id = $request->id;
-        $editalDetails = Edital::find($id);
-        return response()->json(['details'=>$editalDetails]);
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $edital = Edital::findOrFail($id);
+
+        return view('edital.show', compact('edital'));
     }
 
-    //UPDATE EDITAL DETAILS
-    public function updateEditalDetails(Request $request){
-        $id = $request->eid;
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $edital = Edital::findOrFail($id);
 
-        $validator = \Validator::make($request->all(),[
-            'nome_edital'=>'required|unique:editals,nome_edital,'.$id,
-            'dt_inicio'=>'required',
-            'dt_fim'=>'required',
-        ]);
-
-        if(!$validator->passes()){
-               return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
-        }else{
-
-            $edital = Edital::find($id);
-            $edital->nome_edital = $request->nome_edital;
-            $edital->dt_inicio = $request->dt_inicio;
-            $edital->dt_fim = $request->dt_fim;
-            $query = $edital->save();
-
-            if($query){
-                return response()->json(['code'=>1, 'msg'=>'Os detalhes de editais foram atualizados']);
-            }else{
-                return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
-            }
-        }
+        return view('edital.edit', compact('edital'));
     }
 
-    // DELETE EDITAL RECORD
-    public function deleteEdital(Request $request){
-        $id = $request->id;
-        $query = Edital::find($id)->delete();
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $regras = [
+            'nome_edital' => 'required|min:3|max:40|unique:editals,nome_edital,',
+            'dt_inicio' => 'required',
+            'dt_fim' => 'required',
 
-        if($query){
-            return response()->json(['code'=>1, 'msg'=>'O edital foi excluído do banco de dados']);
-        }else{
-            return response()->json(['code'=>0, 'msg'=>'Algo deu errado']);
-        }
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'nome_edital.min' => 'O campo nome deve ter no mínimo 3 caracteres',
+            'nome_edital.max' => 'O campo nome deve ter no máximo 40 caracteres',
+            'unique' => 'O campo :attribute já está sendo utilizado.',
+        ];
+
+        $request->validate($regras, $feedback);
+
+        $edital = Edital::findOrFail($id);
+
+        $edital->update($request->all());
+
+        return redirect()->route('edital.index')->with('success', 'Edital atualizado com sucesso');
+
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $edital = Edital::findOrFail($id);
+
+        $edital->delete();
+
+        return redirect()->route('edital.index')->with('success', 'Edital excluído com sucesso');
+    }
+
+
 }
