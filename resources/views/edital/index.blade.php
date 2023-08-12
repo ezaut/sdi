@@ -21,8 +21,8 @@
         <table class="data-table table stripe hover nowrap">
             <thead>
                 <tr>
-                    <th class="table-plus datatable-nosort">#</th>
-                    <th>Nome do Edital</th>
+                    <th >#</th>
+                    <th>Processo Seletivo</th>
                     <th>Data de início</th>
                     <th>Data do fim</th>
                     <th class="datatable-nosort">Action</th>
@@ -34,8 +34,8 @@
                 <tr>
                     <td class="table-plus">{{ $loop->iteration }}</td>
                     <td>{{ $ed->nome_edital }}</td>
-                    <td>{{ $ed->dt_inicio }}</td>
-                    <td>{{ $ed->dt_fim }}</td>
+                    <td>{{ date('d/m/Y', strtotime($ed->dt_inicio)) }}</td>
+                    <td>{{ date('d/m/Y', strtotime($ed->dt_fim)) }}</td>
                     <td>
                         <div class="dropdown">
                             <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
@@ -45,7 +45,13 @@
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                 <a class="dropdown-item" href="{{ route('edital.show', $ed->id) }}"><i class="dw dw-eye"></i> Detalhes</a>
                                 <a class="dropdown-item" href="{{ route('edital.edit', $ed->id)}}"><i class="dw dw-edit2"></i> Editar</a>
-                                <a class="dropdown-item" href="{{ route('edital.destroy', $ed->id) }}"><i class="dw dw-delete-3"></i> Deletar</a>
+                                <form action="{{ route('edital.destroy', $ed->id) }}"  method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a class="dropdown-item" href="{{ route('edital.destroy', $ed->id) }}" onclick="event.preventDefault();
+                                    this.closest('form').submit();"><i class="dw dw-delete-3"></i> Deletar</a>
+                                </form>
+
                             </div>
                         </div>
                     </td>

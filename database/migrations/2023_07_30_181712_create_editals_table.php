@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nome_edital', 100);
             $table->date('dt_inicio');
             $table->date('dt_fim');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

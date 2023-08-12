@@ -308,9 +308,8 @@
                             <span class="micon bi bi-house"></span><span class="text">Home</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="{{ route('edital.index') }}">Edital</a></li>
-                            <li><a href="{{ route('oferta.index') }}">Oferta</a></li>
-                            <li><a href="{{ route('pontuacao.index') }}">Pontuação</a></li>
+                            <li><a href="#">Inscrição</a></li>
+
                         </ul>
                     </li>
 
@@ -321,7 +320,7 @@
                             <span class="micon bi bi-house"></span><span class="text">Adicionar</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="{{ url('ajax-crud-datatable')}}">Inscrição</a></li>
+                            <li><a href="{{ url('ajax-crud-datatable')}}">Inscrições</a></li>
                             <li><a href="{{ route('edital.index') }}">Edital</a></li>
                             <li><a href="{{ route('oferta.index') }}">Oferta</a></li>
                             <li><a href="{{ route('pontuacao.index') }}">Pontuação</a></li>
@@ -342,6 +341,11 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
+                            @if (Auth::check())
+
+                            @else
+
+                            @endif
                             <div class="title">
                                 <h4>blank</h4>
                             </div>
@@ -395,6 +399,7 @@
     <script src="/back/src/plugins/jquery-steps/jquery.steps.js"></script>
     <script src="/back/vendors/scripts/steps-setting.js"></script>
     <script src="/back/vendors/scripts/jquery.mask.js"></script>
+    <script src="/back/vendors/scripts/jquery.mask.min.js"></script>
     <script src="/back/src/plugins/sweetalert2/sweetalert2.all.js"></script>
     <script src="/back/src/plugins/sweetalert2/sweet-alert.init.js"></script>
     <script src="/back/src/plugins/datatables/js/jquery.dataTables.min.js"></script>

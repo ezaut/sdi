@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Http\Middleware\PreventBackHistory;
 
 class UserAccess
 {
@@ -23,5 +24,6 @@ class UserAccess
 
         return response()->json(['Você não tem permissão para acessar esta página.']);
         /*return response()->view('errors.check-permission');*/
+
     }
 }

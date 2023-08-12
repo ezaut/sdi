@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('grupo', 100);
             $table->integer('pontos')->unsigned()->default(10);
             $table->string('descricao', 100);
-            $table->foreignId('oferta_id')->nullable()->constrained();
+            $table->foreignId('oferta_id')->constrained();
             $table->timestamps();
         });
     }

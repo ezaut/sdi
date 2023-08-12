@@ -21,7 +21,7 @@
         <table class="data-table table stripe hover nowrap">
             <thead>
                 <tr>
-                    <th class="table-plus datatable-nosort">#</th>
+                    <th>#</th>
                     <th>Edital</th>
                     <th>Curso</th>
                     <th>Grupo</th>
@@ -53,7 +53,12 @@
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                 <a class="dropdown-item" href="{{ route('pontuacao.show', $pon->id) }}"><i class="dw dw-eye"></i> Detalhes</a>
                                 <a class="dropdown-item" href="{{ route('pontuacao.edit', $pon->id)}}"><i class="dw dw-edit2"></i> Editar</a>
-                                <a class="dropdown-item" href="{{ route('pontuacao.destroy', $pon->id) }}"><i class="dw dw-delete-3"></i> Deletar</a>
+                                <form action="{{ route('pontuacao.destroy', $pon->id) }}"  method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a class="dropdown-item" href="{{ route('pontuacao.destroy', $pon->id) }}" onclick="event.preventDefault();
+                                    this.closest('form').submit();"><i class="dw dw-delete-3"></i> Deletar</a>
+                                </form>
                             </div>
                         </div>
                     </td>

@@ -9,11 +9,16 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, CascadeSoftDeletes;
 
+    protected $cascadeDeletes = ['inscricao_curriculo_user_editals'];
+
+    protected $dates = ['deleted_at'];
     /**
      * The roles that belong to the User
      *
@@ -70,7 +75,7 @@ class User extends Authenticatable
     protected function type(): Attribute
     {
         return new Attribute(
-            get: fn ($value) =>  ["user", "admin", "servidor"][$value],
+            get: fn ($value) =>  ["user", "admin", "servidor"][$value], // - 0 - User comum - 1 - Admin - 2 - Servidor
         );
     }
 }

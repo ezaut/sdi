@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('grupo', 100)->nullable();
             $table->string('descricao', 100)->nullable();
-            $table->string('arquivo_documento', 100)->nullable();
+            $table->string('link_documento', 100)->nullable();
             $table->integer('pontos')->unsigned()->nullable()->default(0);
             $table->boolean('valido_invalido')->nullable()->default(false);
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

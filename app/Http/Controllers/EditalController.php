@@ -32,7 +32,7 @@ class EditalController extends Controller
     public function store(Request $request)
     {
         $regras = [
-            'nome_edital' => 'required|min:3|max:40|unique:editals,nome_edital,',
+            'nome_edital' => 'required|min:3|max:100|unique:editals,nome_edital,',
             'dt_inicio' => 'required',
             'dt_fim' => 'required',
 
@@ -41,7 +41,7 @@ class EditalController extends Controller
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido',
             'nome_edital.min' => 'O campo nome deve ter no mínimo 3 caracteres',
-            'nome_edital.max' => 'O campo nome deve ter no máximo 40 caracteres',
+            'nome_edital.max' => 'O campo nome deve ter no máximo 100 caracteres',
             'unique' => 'O campo :attribute já está sendo utilizado.',
         ];
 
@@ -80,7 +80,7 @@ class EditalController extends Controller
     public function update(Request $request, string $id)
     {
         $regras = [
-            'nome_edital' => 'required|min:3|max:40|unique:editals,nome_edital,',
+            'nome_edital' => 'required|min:3|max:100|unique:editals,nome_edital,',
             'dt_inicio' => 'required',
             'dt_fim' => 'required',
 
@@ -89,7 +89,7 @@ class EditalController extends Controller
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido',
             'nome_edital.min' => 'O campo nome deve ter no mínimo 3 caracteres',
-            'nome_edital.max' => 'O campo nome deve ter no máximo 40 caracteres',
+            'nome_edital.max' => 'O campo nome deve ter no máximo 100 caracteres',
             'unique' => 'O campo :attribute já está sendo utilizado.',
         ];
 

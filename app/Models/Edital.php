@@ -5,12 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Edital extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
 
     //protected $primaryKey = 'id_edital';
+    protected $cascadeDeletes = ['inscricao_curriculo_user_editals', 'ofertas'];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.

@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('curso', 100);
             $table->string('disciplina', 100);
             $table->integer('carga_horaria')->unsigned()->nullable()->default(60);
-            $table->foreignId('edital_id')->nullable()->constrained();
+            $table->foreignId('edital_id')->constrained();
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

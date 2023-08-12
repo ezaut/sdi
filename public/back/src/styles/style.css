@@ -20,6 +20,7 @@ html {
 }
 input[type="submit"] {
 	-webkit-appearance: none;
+            appearance: none;
 }
 *, *:after, *:before {
 	box-sizing: border-box;
