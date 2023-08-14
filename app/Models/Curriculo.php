@@ -34,7 +34,7 @@ class Curriculo extends Model
      protected $fillable = [
         'grupo',
         'descricao',
-        'arquivo_documento',
+        'link_documento',
         'pontos',
         'valido_invalido'
 

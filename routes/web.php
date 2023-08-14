@@ -35,6 +35,7 @@ Route::middleware(['auth', 'user-access:user', 'PreventBackHistory'])->group(fun
     Route::put('/inscricao/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'update'])->name('inscricao.update');
     Route::delete('/inscricao/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'destroy'])->name('inscricao.destroy');
     Route::resource('/edital', EditalController::class);
+    Route::resource('/oferta', OfertaController::class);
 
 });
 

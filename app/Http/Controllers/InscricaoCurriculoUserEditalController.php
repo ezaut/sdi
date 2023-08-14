@@ -6,6 +6,9 @@ use App\Models\Inscricao_curriculo_user_edital;
 use Illuminate\Http\Request;
 use Datatables;
 use App\Models\Edital;
+use App\Models\User;
+use App\Models\Curriculo;
+use App\Models\Oferta;
 
 class InscricaoCurriculoUserEditalController extends Controller
 {
@@ -25,8 +28,13 @@ class InscricaoCurriculoUserEditalController extends Controller
     public function create(string $id)
     {
         $ed = Edital::findOrFail($id);
+        $ofertas = Oferta::where('edital_id', '=', $id)->get();
+        $edital = Edital::with(['ofertas'])->orderBy('created_at', 'DESC')->get();
+
+        //$user = User::findOrFail($id);
+        //$ins = Inscricao_curriculo_user_edital::create(['edital', 'user', 'curriculo']);
         //return response()->json($ed);
-        return view('inscricoes.criar', compact('ed'));
+        return view('inscricoes.criar', compact('ed', 'edital', 'ofertas'));
     }
 
     /**
@@ -34,8 +42,21 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function store(Inscricao_curriculo_user_edital $inscricao)
     {
+        $regras = [
+            'vaga_escolhida'    =>'required',
 
-        return Response()->json($request);
+        ];
+
+        $feedback = [
+            'required'          => 'O campo :attribute deve ser preenchido',
+
+        ];
+
+        $inscricao->validate($regras, $feedback);
+
+        Inscricao_curriculo_user_edital::create($inscricao->all());
+
+        return redirect()->route('inscricao.index')->with('success', 'A inscrição foi realizada com sucesso');
     }
 
     /**

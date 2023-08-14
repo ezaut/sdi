@@ -21,7 +21,7 @@
 
     <div class="">
         <div style="width: 90%; margin-left: auto; margin-right: auto;">
-            @component('inscricoes._components.form_create_edit', ['ed' => $ed])
+            @component('inscricoes._components.form_create_edit', ['ed' => $ed, 'edital' => $edital, 'ofertas' => $ofertas])
             @endcomponent
         </div>
     </div>

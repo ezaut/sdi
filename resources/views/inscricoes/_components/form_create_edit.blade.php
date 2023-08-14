@@ -2,15 +2,15 @@
     @csrf
     <div class="pd-20 card-box mb-30">
         <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">CPF</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="numeric" name="cpf" value="{{ Auth::user()->cpf }}" disabled>
-            </div>
-        </div>
-        <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Nome</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" type="text" name="name" value="{{ Auth::user()->name }}" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-12 col-md-2 col-form-label">CPF</label>
+            <div class="col-sm-12 col-md-10">
+                <input class="form-control" type="numeric" name="cpf" value="{{ Auth::user()->cpf }}" disabled>
             </div>
         </div>
         <div class="form-group row">
@@ -125,6 +125,32 @@
                 </select>
                 <!-- caso Outro, habilitar -->
                 <input class="form-control" id="InputSelectsexo" type="text" name="sexo" disabled>
+            </div>
+        </div>
+        <label class="col-sm-12 col-md-2 col-form-label">Processo Seletivo</label>
+        <div class="form-group row">
+            <label class="col-sm-12 col-md-2 col-form-label">Nome</label>
+            <div class="col-sm-12 col-md-10">
+                <input class="form-control" type="text" name="nome_edital" value="{{ $ed->nome_edital }}" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-12 col-md-2 col-form-label">Período de inscrição</label>
+            <div class="col-sm-12 col-md-10">
+                <input class="form-control" type="text" name="dt_inicio" value="Do dia {{ date('d/m/Y', strtotime($ed->dt_inicio)) }} ao dia {{ date('d/m/Y', strtotime($ed->dt_fim)) }}" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-12 col-md-2 col-form-label">Área</label>
+            <div class="col-sm-12 col-md-10">
+                <select name="ofertas_id">
+                    <option selected disabled>-- Selecione uma área --</option>
+                    @foreach($ofertas as $of)
+                        <option >{{ $of->curso }}</option>
+                    @endforeach
+                </select>
+                <br>
+                {{ $errors->has('ofertas_id') ? $errors->first('ofertas_id') : '' }}
             </div>
         </div>
     </div>
