@@ -22,9 +22,11 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(string $id)
     {
-        return view('inscricoes.criar');
+        $ed = Edital::findOrFail($id);
+        //return response()->json($ed);
+        return view('inscricoes.criar', compact('ed'));
     }
 
     /**

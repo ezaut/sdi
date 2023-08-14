@@ -26,7 +26,7 @@
                     @foreach($edital as $ed)
                     <tr>
                         <td class="table-plus">{{ $loop->iteration }}</td>
-                        <td><a href="{{ route('inscricao.index') }}">{{ $ed->nome_edital }}</a></td>
+                        <td><a href="{{ route('inscricao.create', $ed->id) }}">{{ $ed->nome_edital }}</a></td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_inicio)) }}</td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_fim)) }}</td>
                     </tr>

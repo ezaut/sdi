@@ -15,13 +15,13 @@
     <div class="menu">
         <ul>
             <li><a href="{{ route('inscricao.index') }}">Voltar</a></li>
-            <li><a href="">Consulta</a></li>
+            <li><a href="">{{ $ed->nome_edital }}</a></li>
         </ul>
     </div>
 
     <div class="">
         <div style="width: 90%; margin-left: auto; margin-right: auto;">
-            @component('inscricoes._components.form_create_edit')
+            @component('inscricoes._components.form_create_edit', ['ed' => $ed])
             @endcomponent
         </div>
     </div>
