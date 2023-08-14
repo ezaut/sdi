@@ -3,12 +3,12 @@
 @section('content')
 <h1>Lista de Usuários</h1>
 
-    <table>
+    <table class="data-table table stripe hover nowrap">
         <thead>
             <tr>
                 <th>Nome</th>
                 <th>Email</th>
-                <th>Tipo atual</th>
+                <th style="margin: 10px">Tipo atual</th>
                 <th>Mudar tipo</th>
             </tr>
         </thead>
