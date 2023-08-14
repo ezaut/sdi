@@ -308,8 +308,13 @@
                             <span class="micon bi bi-house"></span><span class="text">Home</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="#">Inscrição</a></li>
-
+                            @auth
+                            @if (Auth::user()->type == 'user' && Route::has('home'))
+                                <li><a href="{{ route('inscricao.index')}}">Fazer inscrição</a></li>
+                            @endauth
+                            @else
+                            <li><a href="login">Inscrição</a></li>
+                            @endif
                         </ul>
                     </li>
 
@@ -320,7 +325,7 @@
                             <span class="micon bi bi-house"></span><span class="text">Adicionar</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="{{ url('ajax-crud-datatable')}}">Inscrições</a></li>
+                            <li><a href="{{ route('inscricao.index')}}">Inscrições</a></li>
                             <li><a href="{{ route('edital.index') }}">Edital</a></li>
                             <li><a href="{{ route('oferta.index') }}">Oferta</a></li>
                             <li><a href="{{ route('pontuacao.index') }}">Pontuação</a></li>
@@ -328,7 +333,9 @@
                     </li>
                     @endif
                     @endauth
-
+                    <li>
+                        <i class="fas fa-users-class" style="color: red">Atenção:</i> Para fazer Inscrição é necessário antes selecionar <a href="/">processo</a> e realizar <a href="login">login.</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -341,11 +348,6 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            @if (Auth::check())
-
-                            @else
-
-                            @endif
                             <div class="title">
                                 <h4>blank</h4>
                             </div>

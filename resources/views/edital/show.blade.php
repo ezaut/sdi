@@ -36,11 +36,7 @@
                     </tr>
 
                 </table>
-                <form action="{{ route('edital.destroy', $edital->id) }}" method="POST" type="button" class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger m-0">Deletar</button>
-                </form>
+
             </div>
         </div>
 

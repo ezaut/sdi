@@ -110,7 +110,7 @@ class EditalController extends Controller
     {
         $edital = Edital::findOrFail($id);
 
-        $edital->delete();
+        $edital->forceDelete();
 
         return redirect()->route('edital.index')->with('success', 'Edital excluído com sucesso');
     }

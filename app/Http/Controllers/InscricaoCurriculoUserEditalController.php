@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Inscricao_curriculo_user_edital;
 use Illuminate\Http\Request;
 use Datatables;
+use App\Models\Edital;
 
 class InscricaoCurriculoUserEditalController extends Controller
 {
@@ -13,14 +14,9 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()) {
-            return datatables()->of(Inscricao_curriculo_user_edital::select('*'))
-            ->addColumn('action', 'servidor/actions/inscricao-action')
-            ->rawColumns(['action'])
-            ->addIndexColumn()
-            ->make(true);
-        }
-        return view('servidor.actions.index');
+        $edital = Edital::orderBy('created_at', 'DESC')->get();
+
+        return view('inscricoes.inscricao', compact('edital'));
     }
 
     /**
@@ -28,26 +24,16 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function create()
     {
-        //
+        return view('inscricoes.criar');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Inscricao_curriculo_user_edital $inscricao)
     {
-        $inscricaoId = $request->inscricao_id;
 
-        $incricao   =   Inscricao_curriculo_user_edital::updateOrCreate(
-                    [
-                     'inscricao_id' => $inscricaoId
-                    ],
-                    [
-                    'vaga_escolhida' => $request->vaga_escolhida,
-
-                    ]);
-
-        return Response()->json($inscricao);
+        return Response()->json($request);
     }
 
     /**
@@ -61,10 +47,9 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit(Inscricao_curriculo_user_edital $inscricao)
     {
-        $where = array('inscricao_id' => $request->inscricao_id);
-        $inscricao  = Inscricao_curriculo_user_edital::where($where)->first();
+
 
         return Response()->json($inscricao);
     }
@@ -80,9 +65,8 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(Inscricao_curriculo_user_edital $inscricao)
     {
-        $inscricao = Inscricao_curriculo_user_edital::where('inscricao_id',$request->inscricao_id)->delete();
 
         return Response()->json($inscricao);
     }

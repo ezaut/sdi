@@ -22,7 +22,7 @@
                 @foreach($edital as $ed)
                 <tr>
                     <td class="table-plus">{{ $loop->iteration }}</td>
-                    <td><a href="#">{{ $ed->nome_edital }}</a></td>
+                    <td><a href="login">{{ $ed->nome_edital }}</a></td>
                     <td>{{ date('d/m/Y', strtotime($ed->dt_inicio)) }}</td>
                     <td>{{ date('d/m/Y', strtotime($ed->dt_fim)) }}</td>
 
