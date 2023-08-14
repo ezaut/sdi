@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Edital;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -35,9 +36,23 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('admin.adminHome');
+        $users = User::all();
+        return view('admin.adminHome', compact('users'));
     }
 
+
+    /**
+     * Muda o tipo de usuário para: 0-padrão 1-admin 2-supervisor
+     *
+     */
+    public function updateUserType(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->type = $request->input('new_type');
+        $user->save();
+
+        return redirect()->route('admin.home')->with('success', 'Tipo do usuário atualizado com sucesso.');
+    }
     /**
      * Show the application dashboard.
      *
