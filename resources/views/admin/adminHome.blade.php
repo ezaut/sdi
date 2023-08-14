@@ -23,10 +23,11 @@
                             @csrf
                             @method('PUT')
                             <select name="new_type">
+                                <option value="{{$user->type}}">{{$user->type}} </option>
                                 <option value="0">Usuário</option>
                                 <option value="2">Supervisor</option>
                             </select>
-                            <button type="submit">Atualizar Tipo</button>
+                            <button class="btn btn-primary" type="submit">Atualizar Tipo</button>
                         </form>
                     </td>
                 </tr>
