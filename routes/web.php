@@ -43,6 +43,7 @@ Route::middleware(['auth', 'user-access:user', 'PreventBackHistory'])->group(fun
 Route::middleware(['auth', 'user-access:admin', 'PreventBackHistory'])->group(function () {
 
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::put('/admin/users/{id}', [HomeController::class, 'updateUserType'])->name('admin.updateUserType');
 });
 
 //Servidor Routes List
