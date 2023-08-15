@@ -347,23 +347,33 @@
             <div class="min-height-200px">
                 <div class="page-header">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-12 col-sm-12">
                             <div class="title">
-                                <h4>blank</h4>
+                                <h4 class="text-center">@yield('pageTitle')</h4>
                             </div>
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="/">Home</a>
+                                        @auth
+                                        @if (Auth::user()->type == 'user')
+                                            <a href="{{ route('home') }}">Home</a>
+                                        @elseif (Auth::user()->type == 'servidor')
+                                            <a href="{{ route('servidor.home') }}">Home</a>
+                                        @elseif (Auth::user()->type == 'admin')
+                                            <a href="{{ route('admin.home') }}">Home</a>
+                                        @endauth
+                                        @else
+                                            <a href="/home_sead">Home</a>
+                                        @endif
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-
+                                        {{ $_SERVER["PATH_INFO"]  }}
                                     </li>
                                 </ol>
                             </nav>
                         </div>
-                        <div class="col-md-6 col-sm-12 text-right">
-                            {{-- @if (Route::has('login'))
+                        {{-- <div class="col-md-6 col-sm-12 text-right">
+                             @if (Route::has('login'))
 
                             @auth
                             <a name="" id="" class="btn btn-primary" role="button"
@@ -377,8 +387,8 @@
                             @endif
                             @endauth
 
-                            @endif--}}
-                        </div>
+                            @endif
+                        </div>--}}
                     </div>
                 </div>
                 <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">

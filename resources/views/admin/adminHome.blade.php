@@ -1,8 +1,11 @@
 @extends('layouts.app')
-
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Admin - Home')
 @section('content')
-<h1>Lista de Usuários</h1>
 
+<div class="card-box mb-30">
+    <div class="pd-20">
+        <h4 class="text-blue h4 text-center">Lista de usuários</h4>
+    </div>
     <table class="data-table table stripe hover nowrap">
         <thead>
             <tr>
@@ -34,4 +37,5 @@
             @endforeach
         </tbody>
     </table>
+</div>
 @endsection
