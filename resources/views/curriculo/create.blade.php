@@ -5,7 +5,7 @@
 <div class="">
 
     <div class="">
-        <p>Adicionar Currilo</p>
+        <p>Adicionar Currículo</p>
     </div>
     @if(Session::has('danger'))
     <div class="alert alert-danger" role="alert">

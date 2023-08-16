@@ -28,7 +28,7 @@
                     <th>Pontos</th>
                     <th>Pontuação máxima</th>
                     <th>Descrição</th>
-                    <th>ID Oferta</th>
+                    <th>Nome da Oferta</th>
                     <th class="datatable-nosort">Action</th>
                 </tr>
             </thead>
@@ -43,7 +43,7 @@
                     <td>{{ $pon->pontos }}</td>
                     <td>{{ $pon->pontuacao_max }}</td>
                     <td>{{ $pon->descricao }}</td>
-                    <td>{{ $pon->oferta_id }}</td>
+                    <td>{{ $pon->oferta->curso }} {{ $pon->oferta->disciplina }}</td>
                     <td>
                         <div class="dropdown">
                             <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
