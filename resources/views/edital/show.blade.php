@@ -17,7 +17,7 @@
 
         <div class="">
             <div style="width: 30%; margin-left: auto; margin-right: auto;">
-                <table border="1" style="text-align: left">
+                <table class="data-table table stripe hover nowrap" style="text-align: left">
                     <tr>
                         <td>ID:</td>
                         <td>{{ $edital->id }}</td>
@@ -39,6 +39,7 @@
 
             </div>
         </div>
+        <a  type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $edital->id) }}">Acessar a lista de inscritos</a>
 
     </div>
 
