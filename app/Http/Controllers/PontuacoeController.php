@@ -51,7 +51,10 @@ class PontuacoeController extends Controller
         $request->validate($regras, $feedback);
 
         Pontuacoe::create($request->all());
-
+        /**
+         * ToDo
+         * verificar se o usuário deseja inserir mais de uma pontuação
+         */
         return redirect()->route('pontuacao.index')->with('success', 'A pontuação foi adicionada com sucesso');
 
 

@@ -51,7 +51,14 @@ class OfertaController extends Controller
 
         Oferta::create($request->all());
 
-        return redirect()->route('oferta.index')->with('success', 'A oferta foi adicionada com sucesso');
+        //return redirect()->route('oferta.index')->with('success', 'A oferta foi adicionada com sucesso');
+        /**
+         * Ao inserir uma nova oferta, ja redireciona para a página de inserção de pontuação da oferta
+         *
+         * ToDo
+         * verificar se o usuário deseja inserir mais uma oferta
+         */
+        return redirect()->action(PontuacoeController::class, 'create')->with('success', 'A oferta foi adicionada com sucesso');
 
 
     }
