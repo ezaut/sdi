@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Curriculo;
 use Illuminate\Http\Request;
+use DataTables;
 
 class CurriculoController extends Controller
 {
@@ -12,7 +13,9 @@ class CurriculoController extends Controller
      */
     public function index()
     {
-        //
+        $curriculos = Curriculo::orderBy('created_at', 'DESC')->get();
+
+        return view('curriculo.index', compact('curriculos'));
     }
 
     /**
@@ -20,7 +23,7 @@ class CurriculoController extends Controller
      */
     public function create()
     {
-        //
+        return view('curriculo.create');
     }
 
     /**
@@ -28,38 +31,80 @@ class CurriculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $regras = [
+            'grupo' => 'required|unique:curriculos,grupo,',
+            'descricao' => 'required',
+            'link_documento' => 'required',
+            'pontos' => 'required',
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'unique' => 'O campo :attribute já está sendo utilizado.',
+        ];
+
+        $request->validate($regras, $feedback);
+
+        Curriculo::create($request->all());
+
+        return redirect()->route('curriculo.index')->with('success', 'Curriculo adicionado com sucesso');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Curriculo $curriculo)
+    public function show(string $id)
     {
-        //
+        $curriculo = Curriculo::findOrFail($id);
+
+        return view('curriculo.show', compact('curriculo'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Curriculo $curriculo)
+    public function edit(string $id)
     {
-        //
+        $curriculo = Curriculo::findOrFail($id);
+
+        return view('curriculo.edit', compact('curriculo'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Curriculo $curriculo)
+    public function update(Request $request, string $id)
     {
-        //
+        $regras = [
+            'grupo' => 'required|unique:curriculos,grupo,',
+            'descricao' => 'required',
+            'link_documento' => 'required',
+            'pontos' => 'required',
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'unique' => 'O campo :attribute já está sendo utilizado.',
+        ];
+
+        $request->validate($regras, $feedback);
+
+        $curriculo = Curriculo::findOrFail($id);
+
+        $curriculo->update($request->all());
+
+        return redirect()->route('curriculo.index')->with('success', 'Curriculo atualizado com sucesso');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Curriculo $curriculo)
+    public function destroy(string $id)
     {
-        //
+        $curriculo = Curriculo::findOrFail($id);
+
+        $curriculo->forceDelete();
+
+        return redirect()->route('curriculo.index')->with('success', 'Curriculo excluído com sucesso');
     }
 }

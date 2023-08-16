@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Home - Candidato')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Candidato')
 @section('content')
 <div class="card-body">
     @if(auth()->user()->is_admin == 1)
@@ -26,7 +26,7 @@
                     @foreach($edital as $ed)
                     <tr>
                         <td class="table-plus">{{ $loop->iteration }}</td>
-                        <td><a href="{{ route('inscricao.create', $ed->id) }}">{{ $ed->nome_edital }}</a></td>
+                        <td>{{ $ed->nome_edital }}</td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_inicio)) }}</td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_fim)) }}</td>
                     </tr>

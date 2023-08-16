@@ -5,7 +5,9 @@
 <div class="card-box mb-30">
     <div class="pd-20">
         <h4 class="text-blue h4 text-center">Inscrição</h4>
-        {{-- <a href="{{ route('inscricao.create', $ed->id ) }}" class="btn btn-primary">Fazer inscrição</a> --}}
+        <h3 class="text-blue h4 text-left">Adicione primeiro o currículo para depois fazer a inscrição.</h3>
+        <a href="{{ route('inscricao.create') }}" class="btn btn-primary">Fazer inscrição</a>
+        <a href="{{ route('curriculo.index') }}" class="btn btn-primary">Adicionar curriculo</a>
     </div>
 
     @if(Session::has('success'))
@@ -39,7 +41,7 @@
                     @foreach($edital as $ed)
                     <tr>
                         <td class="table-plus">{{ $loop->iteration }}</td>
-                        <td><a href="{{ route('inscricao.create', $ed->id) }}">{{ $ed->nome_edital }}</a></td>
+                        <td>{{ $ed->nome_edital }}</td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_inicio)) }}</td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_fim)) }}</td>
                     </tr>

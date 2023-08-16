@@ -366,8 +366,11 @@
                                             <a href="/home_sead">Home</a>
                                         @endif
                                     </li>
+                                    <li class="breadcrumb-item" aria-activedescendant="page">
+                                        @yield('pageTitle')
+                                    </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        {{ $_SERVER["PATH_INFO"]  }}
+                                        @yield('subTitle')
                                     </li>
                                 </ol>
                             </nav>

@@ -28,7 +28,8 @@ class InscricaoCurriculoUserEditalController extends Controller
     public function create(string $id)
     {
         $ed = Edital::findOrFail($id);
-        $ofertas = Oferta::where('edital_id', '=', $id)->get();
+        //$ofertas = Oferta::where('edital_id', '=', $id)->get();
+        $ofertas = Edital::find($id)->ofertas;
         $edital = Edital::with(['ofertas'])->orderBy('created_at', 'DESC')->get();
 
         //$user = User::findOrFail($id);
@@ -40,7 +41,7 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Inscricao_curriculo_user_edital $inscricao)
+    public function store(Request $request, Inscricao_curriculo_user_edital $inscricao)
     {
         $regras = [
             'vaga_escolhida'    =>'required',
@@ -52,11 +53,12 @@ class InscricaoCurriculoUserEditalController extends Controller
 
         ];
 
-        $inscricao->validate($regras, $feedback);
+        $request->validate($regras, $feedback);
 
+        User::findOrFail($request->id)->update($request->all());
         Inscricao_curriculo_user_edital::create($inscricao->all());
 
-        return redirect()->route('inscricao.index')->with('success', 'A inscrição foi realizada com sucesso');
+        return redirect()->route('home')->with('success', 'A inscrição foi realizada com sucesso');
     }
 
     /**

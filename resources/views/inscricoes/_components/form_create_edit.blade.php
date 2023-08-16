@@ -141,16 +141,16 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Área</label>
+            <label class="col-sm-12 col-md-2 col-form-label">Vaga</label>
             <div class="col-sm-12 col-md-10">
-                <select name="ofertas_id">
-                    <option selected disabled>-- Selecione uma área --</option>
+                <select name="vaga_escolhida">
+                    <option selected disabled>-- Selecione uma vaga --</option>
                     @foreach($ofertas as $of)
                         <option >{{ $of->curso }}</option>
                     @endforeach
                 </select>
                 <br>
-                {{ $errors->has('ofertas_id') ? $errors->first('ofertas_id') : '' }}
+                {{ $errors->has('vaga_escolhida') ? $errors->first('vaga_escolhida') : '' }}
             </div>
         </div>
     </div>
@@ -159,7 +159,7 @@
             <button class="btn btn-primary" type="submit">
                 Cadastrar
             </button>
-            <button type="button" class="btn btn-danger">
+            <button type="cancel" class="btn btn-danger">
                 Cancelar
             </button>
         </ul>

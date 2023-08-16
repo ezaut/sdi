@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Home SEAD - UNIVASF')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'SEAD - UNIVASF')
 @section('content')
 <div class="card-box mb-30">
     <div class="pd-20">

@@ -32,10 +32,6 @@ class Inscricao_curriculo_user_edital extends Model
     {
         return $this->belongsTo(Edital::class);
     }
-    /*public function editals(): HasMany
-    {
-        return $this->hasMany(Edital::class);
-    }*/
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +39,9 @@ class Inscricao_curriculo_user_edital extends Model
      * @var array<int, string>
      */
      protected $fillable = [
+        'edital_id',
+        'curriculo_id',
+        'user_id',
         'vaga_escolhida',
         'dt_inscricao'
 

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Inscrição')
+@section('subTitle', isset($subTitle) ? $subTitle : 'Criar')
 @section('content')
 
 <div class="">
