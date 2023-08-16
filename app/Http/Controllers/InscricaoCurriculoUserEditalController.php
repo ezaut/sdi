@@ -18,24 +18,26 @@ class InscricaoCurriculoUserEditalController extends Controller
     public function index()
     {
         $edital = Edital::orderBy('created_at', 'DESC')->get();
+        $curriculo = Curriculo::orderBy('created_at', 'DESC')->get();
 
-        return view('inscricoes.inscricao', compact('edital'));
+        return view('inscricoes.inscricao', compact('edital', 'curriculo'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(string $id)
+    public function create(string $edital_id, string $curriculo_id)
     {
-        $ed = Edital::findOrFail($id);
+        $ed = Edital::findOrFail($edital_id);
         //$ofertas = Oferta::where('edital_id', '=', $id)->get();
-        $ofertas = Edital::find($id)->ofertas;
+        $ofertas = Edital::find($edital_id)->ofertas;
         $edital = Edital::with(['ofertas'])->orderBy('created_at', 'DESC')->get();
+        $curr = Curriculo::findOrFail($curriculo_id);
 
         //$user = User::findOrFail($id);
         //$ins = Inscricao_curriculo_user_edital::create(['edital', 'user', 'curriculo']);
         //return response()->json($ed);
-        return view('inscricoes.criar', compact('ed', 'edital', 'ofertas'));
+        return view('inscricoes.criar', compact('ed', 'edital', 'ofertas', 'curr'));
     }
 
     /**
@@ -55,8 +57,8 @@ class InscricaoCurriculoUserEditalController extends Controller
 
         $request->validate($regras, $feedback);
 
-        User::findOrFail($request->id)->update($request->all());
-        Inscricao_curriculo_user_edital::create($inscricao->all());
+        //User::findOrFail($request->id)->update($request->all());
+        Inscricao_curriculo_user_edital::create($request->all());
 
         return redirect()->route('home')->with('success', 'A inscrição foi realizada com sucesso');
     }

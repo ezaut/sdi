@@ -9,7 +9,11 @@
         <div class="pd-20">
             <h4 class="text-blue h4 text-center">Lista de Editais</h4>
         </div>
-
+        <div>
+            @foreach ($inscricao as $ins)
+                {{ $ins->vaga_escolhida }}
+            @endforeach
+        </div>
         <div class="pb-20">
             <table class="data-table table stripe hover nowrap">
                 <thead>

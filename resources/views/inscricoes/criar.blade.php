@@ -17,12 +17,13 @@
         <ul>
             <li><a href="{{ route('inscricao.index') }}">Voltar</a></li>
             <li><a href="">{{ $ed->nome_edital }}</a></li>
+            <li><a href="">{{ $curr->grupo }}</a></li>
         </ul>
     </div>
 
     <div class="">
         <div style="width: 90%; margin-left: auto; margin-right: auto;">
-            @component('inscricoes._components.form_create_edit', ['ed' => $ed, 'edital' => $edital, 'ofertas' => $ofertas])
+            @component('inscricoes._components.form_create_edit', ['ed' => $ed, 'edital' => $edital, 'ofertas' => $ofertas, 'curr' => $curr])
             @endcomponent
         </div>
     </div>

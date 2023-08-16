@@ -6,7 +6,7 @@
     <div class="pd-20">
         <h4 class="text-blue h4 text-center">Inscrição</h4>
         <h3 class="text-blue h4 text-left">Adicione primeiro o currículo para depois fazer a inscrição.</h3>
-        <a href="{{ route('inscricao.create') }}" class="btn btn-primary">Fazer inscrição</a>
+        {{--<a href="{{ route('inscricao.create', $edital->id) }}" id="fazerinscricao" class="btn btn-primary">Fazer inscrição</a>--}}
         <a href="{{ route('curriculo.index') }}" class="btn btn-primary">Adicionar curriculo</a>
     </div>
 
@@ -25,6 +25,8 @@
             <h4 class="text-blue h4">Lista de Editais</h4>
         </div>
 
+
+
         <div class="pb-20">
             <table class="data-table table stripe hover nowrap">
                 <thead>
@@ -38,13 +40,15 @@
                 </thead>
                 <tbody>
                     @if($edital->count() > 0)
+                    @foreach ($curriculo as $curr)
                     @foreach($edital as $ed)
                     <tr>
                         <td class="table-plus">{{ $loop->iteration }}</td>
-                        <td>{{ $ed->nome_edital }}</td>
+                        <td><a href="{{ route('inscricao.create', [$ed->id, $curr->id, Auth::user()] ) }}">{{ $ed->nome_edital }}</a></td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_inicio)) }}</td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_fim)) }}</td>
                     </tr>
+                    @endforeach
                     @endforeach
                     @else
                     <tr>

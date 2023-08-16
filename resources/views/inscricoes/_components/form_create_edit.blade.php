@@ -1,5 +1,8 @@
-<form method="post" action="{{ route('inscricao.store') }}">
+<form method="post" action="{{ route('inscricao.store', array('edital_id' => $ed->id, 'curriculo_id' => $curr->id, 'user_id' => Auth::user()->id)) }}">
     @csrf
+    {{ $ed->id }}
+    {{ $curr->id }}
+    {{ Auth::user()->id }}
     <div class="pd-20 card-box mb-30">
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Nome</label>
