@@ -68,8 +68,8 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function show_inscricoes_user(User $id)
     {
-        $user = Auth::user();
-        $inscricoes = Inscricao_curriculo_user_edital::where('user_id', '=', $user->id)->get();
+        //$user = Auth::user();
+        $inscricoes = Inscricao_curriculo_user_edital::where('user_id', '=', $id)->get();
         //$curr =
         return view("user.inscricoes", compact('inscricoes'));
     }

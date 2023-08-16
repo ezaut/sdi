@@ -30,7 +30,7 @@ Route::middleware(['auth', 'user-access:user', 'PreventBackHistory'])->group(fun
     Route::get('/inscricao', [InscricaoCurriculoUserEditalController::class, 'index'])->name('inscricao.index');
     Route::get('/inscricao/criar/{edital_id}/{curriculo_id}/{user_id}', [InscricaoCurriculoUserEditalController::class, 'create'])->name('inscricao.create');
     Route::post('/inscricao', [InscricaoCurriculoUserEditalController::class, 'store'])->name('inscricao.store');
-    Route::get('/inscricoes', [InscricaoCurriculoUserEditalController::class, 'show_inscricoes_user'])->name('inscricoes.show');
+    Route::get('/inscricoes/{user_id}', [InscricaoCurriculoUserEditalController::class, 'show_inscricoes_user'])->name('inscricoes.show');
     Route::get('/inscricao/{inscricao}/editar', [InscricaoCurriculoUserEditalController::class, 'edit'])->name('inscricao.edit');
     Route::put('/inscricao/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'update'])->name('inscricao.update');
     Route::delete('/inscricao/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'destroy'])->name('inscricao.destroy');

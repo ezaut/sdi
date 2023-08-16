@@ -311,7 +311,7 @@
                             @auth
                             @if (Auth::user()->type == 'user' && Route::has('home'))
                                 <li><a href="{{ route('inscricao.index')}}">Fazer inscrição</a></li>
-                                <li><a href="{{ route('inscricoes.show') }}">Suas inscrições</a></li>
+                                <li><a href="{{ route('inscricoes.show', Auth::user()->id) }}">Suas inscrições</a></li>
                             @endauth
                             @else
                             <li><a href="login">Inscrição</a></li>
