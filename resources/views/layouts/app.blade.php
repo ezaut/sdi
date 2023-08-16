@@ -311,6 +311,7 @@
                             @auth
                             @if (Auth::user()->type == 'user' && Route::has('home'))
                                 <li><a href="{{ route('inscricao.index')}}">Fazer inscrição</a></li>
+                                <li><a href="{{ route('inscricoes.show') }}">Suas inscrições</a></li>
                             @endauth
                             @else
                             <li><a href="login">Inscrição</a></li>
@@ -334,7 +335,7 @@
                     @endif
                     @endauth
                     <li>
-                        <i class="fas fa-users-class" style="color: red">Atenção:</i> Para fazer Inscrição é necessário antes selecionar <a href="/">processo</a> e realizar <a href="login">login.</a>
+                        <i class="fas fa-users-class" style="color: red">Atenção:</i> Para fazer Inscrição é necessário antes realizar <a href="login">login</a> e selecionar <a href="/">processo</a>.
                     </li>
                 </ul>
             </div>
