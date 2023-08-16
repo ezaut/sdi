@@ -17,7 +17,7 @@
 
     <div class="">
         <div style="width: 30%; margin-left: auto; margin-right: auto;">
-            <table border="1" style="text-align: left">
+            <table style="text-align: left" class="data-table table stripe hover nowrap">
                 <tr>
                     <td>Edital:</td>
                     <td>{{ $pontuacao->oferta->edital->nome_edital }}</td>
