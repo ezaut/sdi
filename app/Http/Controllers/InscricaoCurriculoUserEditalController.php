@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Inscricao_curriculo_user_edital;
 use Illuminate\Http\Request;
 use Datatables;
@@ -66,9 +66,20 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Inscricao_curriculo_user_edital $inscricao)
+    public function show_inscricoes_user(User $id)
     {
-        //
+        $user = Auth::user();
+        $inscricoes = Inscricao_curriculo_user_edital::where('user_id', '=', $user->id)->get();
+        //$curr =
+        return view("user.inscricoes", compact('inscricoes'));
+    }
+
+    public function show_inscricoes_edial(Edital $id)
+    {
+
+        $inscricoes = Inscricao_curriculo_user_edital::where('edital_id', '=', $id)->get();
+        //$curr =
+        return view("servidor.inscricoes", compact('inscricoes'));
     }
 
     /**
