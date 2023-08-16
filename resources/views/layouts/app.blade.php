@@ -399,7 +399,8 @@
                 </div>
             </div>
             <div class="footer-wrap pd-20 mb-20 card-box">
-                Footer do site
+                SEaD®, Secretaria de Eduação à Distância<br>
+                Universidade Federal do Vale do São Francisco - 2023
                 <a href="" target="_blank"></a>
             </div>
         </div>
