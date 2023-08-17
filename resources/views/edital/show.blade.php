@@ -39,7 +39,9 @@
 
             </div>
         </div>
-        <a  type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $edital->id) }}">Acessar a lista de inscritos</a>
+        @auth
+            <a type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $edital->id) }}">Acessar a lista de inscritos</a>
+        @endauth
 
     </div>
 

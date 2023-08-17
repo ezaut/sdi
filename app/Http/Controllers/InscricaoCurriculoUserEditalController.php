@@ -74,12 +74,12 @@ class InscricaoCurriculoUserEditalController extends Controller
         return view("user.inscricoes", compact('inscricoes'));
     }
 
-    public function show_inscricoes_edial(Edital $id)
+    public function show_inscricoes_edital(string $edital_id)
     {
-
-        $inscricoes = Inscricao_curriculo_user_edital::where('edital_id', '=', $id)->get();
+        $edital = Edital::findOrFail($edital_id);
+        $inscricoes = Inscricao_curriculo_user_edital::where('edital_id', '=', $edital_id)->get();
         //$curr =
-        return view("servidor.inscricoes", compact('inscricoes'));
+        return view("servidor.inscricoes", compact('inscricoes', 'edital'));
     }
 
     /**
