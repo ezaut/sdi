@@ -33,7 +33,7 @@
                 @foreach($edital as $ed)
                 <tr>
                     <td class="table-plus">{{ $loop->iteration }}</td>
-                    <td>{{ $ed->nome_edital }}</td>
+                    <td><a href="{{route('edital.show', $ed->id)}}">{{ $ed->nome_edital }}</a></td>
                     <td>{{ date('d/m/Y', strtotime($ed->dt_inicio)) }}</td>
                     <td>{{ date('d/m/Y', strtotime($ed->dt_fim)) }}</td>
                     <td>
