@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Servidor')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

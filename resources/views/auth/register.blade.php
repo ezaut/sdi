@@ -15,7 +15,7 @@
                             <label for="cpf" class="col-md-4 col-form-label text-md-end">{{ __('CPF') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cpf" type="numeric" placeholder="Digite somente números." class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" required autocomplete="cpf" autofocus>
+                                <input id="cpf" type="numeric" onchange="this.value = parseInt(this.value);" placeholder="Digite somente números." class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" required autocomplete="cpf" autofocus>
 
                                 @error('cpf')
                                     <span class="invalid-feedback" role="alert">

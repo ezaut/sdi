@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Admin - Home')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Admin')
 @section('content')
 
 <div class="card-box mb-30">
@@ -28,7 +28,7 @@
                             <select name="new_type">
                                 <option value="{{$user->type}}">{{$user->type}} </option>
                                 <option value="0">Usuário</option>
-                                <option value="2">Supervisor</option>
+                                <option value="2">Servidor</option>
                             </select>
                             <button class="btn btn-primary" type="submit">Atualizar Tipo</button>
                         </form>
