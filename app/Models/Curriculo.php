@@ -27,6 +27,16 @@ class Curriculo extends Model
     }
 
     /**
+     * Get the user that owns the Curriculo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -36,7 +46,6 @@ class Curriculo extends Model
         'descricao',
         'link_documento',
         'pontos',
-
-
+        'user_id'
     ];
 }

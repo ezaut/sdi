@@ -30,6 +30,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the curriculo associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function curriculo(): HasOne
+    {
+        return $this->hasOne(curriculo::class);
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

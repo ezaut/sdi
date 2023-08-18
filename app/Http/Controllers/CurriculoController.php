@@ -36,6 +36,7 @@ class CurriculoController extends Controller
             'descricao' => 'required',
             'link_documento' => 'required',
             'pontos' => 'required',
+            'user_id' => 'required',
         ];
 
         $feedback = [
@@ -44,7 +45,7 @@ class CurriculoController extends Controller
         ];
 
         $request->validate($regras, $feedback);
-
+        //dd($request);
         Curriculo::create($request->all());
 
         return redirect()->route('curriculo.index')->with('success', 'Curriculo adicionado com sucesso');
