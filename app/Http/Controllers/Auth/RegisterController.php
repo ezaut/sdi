@@ -63,12 +63,12 @@ class RegisterController extends Controller
             'bairro' => ['string'],
             'cidade' => ['string'],
             'uf' => ['string','min:2','max:2'],
-            'cep' => ['string','min:10','max:10'],
+            'cep' => ['string','min:8','max:12'],
             'rg' => ['integer'],
             'org_exp' => ['string'],
             'dt_emissao' => ['date'],
             'telefone' => ['string'],
-            'sexo' => ['string','min:1','max:1'],
+            'sexo' => ['string','min:1','max:100'],
         ]);
     }
 
