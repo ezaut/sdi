@@ -311,13 +311,15 @@
                             @auth
                             @if (Auth::user()->type == 'user' && Route::has('home'))
                                 <li><a href="{{ route('inscricao.index')}}">Fazer inscrição</a></li>
+                                <li><a href="{{ route('candidato.info', Auth::user()->id) }}">Seus Dados</a></li>
                                 <li><a href="{{ route('inscricoes.show', Auth::user()->id) }}">Suas inscrições</a></li>
-                            @endauth
-                            @else
-                            <li><a href="login">Inscrição</a></li>
-                            @endif
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <i class="fas fa-users-class" style="color: red">Atenção:</i> Para fazer Inscrição é necessário antes realizar <a href="login">login</a> e selecionar <a href="/">processo</a>.
+                        </li>
+                        @endif
+                        @endauth
 
                     @auth
                     @if ( Auth::user()->type == 'servidor' )
@@ -326,17 +328,15 @@
                             <span class="micon bi bi-house"></span><span class="text">Adicionar</span>
                         </a>
                         <ul class="submenu">
+                            <li><a href="{{ route('edital.index') }}">Editais</a></li>
+                            <li><a href="{{ route('oferta.index') }}">Ofertas</a></li>
+                            <li><a href="{{ route('pontuacao.index') }}">Pontuações</a></li>
                             <li><a href="{{ route('inscricao.index')}}">Inscrições</a></li>
-                            <li><a href="{{ route('edital.index') }}">Edital</a></li>
-                            <li><a href="{{ route('oferta.index') }}">Oferta</a></li>
-                            <li><a href="{{ route('pontuacao.index') }}">Pontuação</a></li>
                         </ul>
                     </li>
                     @endif
                     @endauth
-                    <li>
-                        <i class="fas fa-users-class" style="color: red">Atenção:</i> Para fazer Inscrição é necessário antes realizar <a href="login">login</a> e selecionar <a href="/">processo</a>.
-                    </li>
+
                 </ul>
             </div>
         </div>
