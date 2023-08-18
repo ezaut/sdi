@@ -32,6 +32,10 @@
                 placeholder="Total de pontos obtidos">
             {{ $errors->has('pontos') ? $errors->first('pontos') : '' }}
         </div>
+        <div>
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+        </div>
+
         <div class="form-group">
             <button type="submit" class="btn btn-block btn-success">SALVAR</button>
         </div>
