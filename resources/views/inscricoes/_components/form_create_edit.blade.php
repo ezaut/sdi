@@ -25,7 +25,7 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Nome da mãe</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="nome_mae">
+                <input class="form-control" type="text" name="nome_mae" placeholder="Nome da mãe">
             </div>
         </div>
         <div class="form-group row">
@@ -51,7 +51,7 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Grupo</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="grupo">
+                <input class="form-control" value="{{ $curr->grupo }}" type="text" name="grupo" disabled>
             </div>
         </div>
         <div class="form-group row">

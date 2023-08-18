@@ -45,7 +45,7 @@ class HomeController extends Controller
 
 
     /**
-     * Muda o tipo de usuário para: 0-padrão 1-admin 2-supervisor
+     * Muda o tipo de usuário para: 0-padrão 1-admin 2-servidor
      *
      */
     public function updateUserType(Request $request, $id)
@@ -63,7 +63,9 @@ class HomeController extends Controller
      */
     public function servidorHome()
     {
-        return view('servidor.servidorHome');
+        $edital = Edital::orderBy('created_at', 'DESC')->get();
+
+        return view('servidor.servidorHome', compact('edital'));
     }
 
 }

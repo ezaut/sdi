@@ -1,7 +1,7 @@
 @extends('layouts.app')
-
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Minhas inscrições')
 @section('content')
-    <h1>Minhas Inscrições</h1>
+    <h3>Minhas Inscrições</h3>
 
     <table class="data-table table stripe hover nowrap">
         <thead>
@@ -18,7 +18,7 @@
                     <td>{{ $inscricao->edital_id }}</td>
                     <td>{{ $inscricao->vaga_escolhida }}</td>
                     <td>{{ date('d/m/Y', strtotime($inscricao->dt_inscricao)) }}</td>
-
+                    <td>{{ $inscricao->curriculo->valido_invalido }}</td>
                 </tr>
             @endforeach
         </tbody>

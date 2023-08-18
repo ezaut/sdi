@@ -54,9 +54,10 @@ Route::middleware(['auth', 'user-access:servidor', 'PreventBackHistory'])->group
     //Route::get('/inscricao', [InscricaoCurriculoUserEditalController::class, 'index'])->name('inscricao.index');
     //Route::get('/inscricao/criar', [InscricaoCurriculoUserEditalController::class, 'create'])->name('inscricao.create');
     //Route::post('/inscricao', [InscricaoCurriculoUserEditalController::class, 'store'])->name('inscricao.store');
-    Route::get('/servidor/inscricoes/{edital_id}', [InscricaoCurriculoUserEditalController::class, 'show_inscricoes_edital'])->name('servidor.inscricoes.show');
-    Route::get('/inscricao/{inscricao}/editar', [InscricaoCurriculoUserEditalController::class, 'edit'])->name('inscricao.edit');
-    Route::put('/inscricao/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'update'])->name('inscricao.update');
+    Route::get('/servidor/inscricoes/{edital_id}', [InscricaoCurriculoUserEditalController::class, 'show_inscricoes_edital'])->name('servidor.inscricoes.inscricoes.edital');
+    Route::get('/servidor/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'show'])->name('servidor.show');
+    Route::get('/servidor/{inscricao}/editar', [InscricaoCurriculoUserEditalController::class, 'edit'])->name('servidor.edit');
+    Route::put('/servidor/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'update'])->name('servidor.update');
     Route::delete('/inscricao/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'destroy'])->name('inscricao.destroy');
 
     Route::resource('/edital', EditalController::class);

@@ -66,10 +66,11 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show_inscricoes_user(User $id)
+    public function show_inscricoes_user(string $id)
     {
         //$user = Auth::user();
-        $inscricoes = Inscricao_curriculo_user_edital::where('user_id', '=', $id)->get();
+        //$inscricoes = Inscricao_curriculo_user_edital::where('user_id', '=', $id)->get();
+        $inscricoes = Inscricao_curriculo_user_edital::where('user_id', $id)->with(['edital', 'user', 'curriculo'])->orderBy('created_at', 'DESC')->get();
         //$curr =
         return view("user.inscricoes", compact('inscricoes'));
     }
@@ -77,9 +78,18 @@ class InscricaoCurriculoUserEditalController extends Controller
     public function show_inscricoes_edital(string $edital_id)
     {
         $edital = Edital::findOrFail($edital_id);
-        $inscricoes = Inscricao_curriculo_user_edital::where('edital_id', '=', $edital_id)->get();
+        $inscricoes = Inscricao_curriculo_user_edital::where('edital_id', $edital_id)->with(['edital', 'user', 'curriculo'])->orderBy('created_at', 'DESC')->get();
         //$curr =
         return view("servidor.inscricoes", compact('inscricoes', 'edital'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+     public function show(Inscricao_curriculo_user_edital $inscricao)
+    {
+        return view("servidor.show", compact('inscricao'));
+        //return response()->route('servidor.show')->json($inscricao);
     }
 
     /**
@@ -89,7 +99,7 @@ class InscricaoCurriculoUserEditalController extends Controller
     {
 
 
-        return Response()->json($inscricao);
+        return view("servidor.edit", compact('inscricao'));
     }
 
     /**
@@ -97,7 +107,9 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function update(Request $request, Inscricao_curriculo_user_edital $inscricao)
     {
-        //
+        $inscricao->curriculo->update($request->all());
+
+        return redirect()->route('servidor.home')->with('success', 'Inscrição atualizada com sucesso');
     }
 
     /**

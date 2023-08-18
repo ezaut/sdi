@@ -54,7 +54,7 @@ class EditalController extends Controller
          * Ao inserir uma nova inscrição, ja redireciona para a página de inserção do oferta
          *
          */
-        return redirect()->action([OfertaController::class, 'create'])->with('success', 'Edital adicionado com sucesso');
+        return redirect()->route('oferta.create')->with('success', 'Edital adicionado com sucesso');
 
     }
 

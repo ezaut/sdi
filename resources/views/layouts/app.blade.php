@@ -326,7 +326,6 @@
                             <span class="micon bi bi-house"></span><span class="text">Adicionar</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="{{ route('inscricao.index')}}">Inscrições</a></li>
                             <li><a href="{{ route('edital.index') }}">Edital</a></li>
                             <li><a href="{{ route('oferta.index') }}">Oferta</a></li>
                             <li><a href="{{ route('pontuacao.index') }}">Pontuação</a></li>

@@ -6,7 +6,8 @@
     <div class="pd-20">
         <h4 class="text-blue h4 text-center">Inscrição</h4>
         <h3 class="text-blue h4 text-left">Adicione primeiro o currículo para depois fazer a inscrição.</h3>
-        {{--<a href="{{ route('inscricao.create', $edital->id) }}" id="fazerinscricao" class="btn btn-primary">Fazer inscrição</a>--}}
+        {{--<a href="{{ route('inscricao.create', $edital->id) }}" id="fazerinscricao" class="btn btn-primary">Fazer
+            inscrição</a>--}}
         <a href="{{ route('curriculo.index') }}" class="btn btn-primary">Adicionar curriculo</a>
     </div>
 
@@ -44,7 +45,8 @@
                     @foreach($edital as $ed)
                     <tr>
                         <td class="table-plus">{{ $loop->iteration }}</td>
-                        <td><a href="{{ route('inscricao.create', [$ed->id, $curr->id, Auth::user()] ) }}">{{ $ed->nome_edital }}</a></td>
+                        <td><a href="{{ route('inscricao.create', [$ed->id, $curr->id, Auth::user()] ) }}">{{
+                                $ed->nome_edital }}</a></td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_inicio)) }}</td>
                         <td>{{ date('d/m/Y', strtotime($ed->dt_fim)) }}</td>
                     </tr>

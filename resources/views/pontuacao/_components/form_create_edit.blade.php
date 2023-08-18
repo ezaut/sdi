@@ -17,12 +17,27 @@
     </select>
     <br>
     {{ $errors->has('oferta_id') ? $errors->first('oferta_id') : '' }}
+    <br>
+    @if ($pontuacoes)
+    <select name="grupo">
+        <option>-- Selecione um Grupo --</option>
+
+        @foreach($pontuacoes as $pontuacao)
+            <option value="{{ $pontuacao->grupo }}" {{ ($pontuacao->grupo ?? old('grupo')) == $pontuacao->grupo ? 'selected' :
+                '' }} >{{ $pontuacao->grupo }}</option>
+        @endforeach
+    </select>
+    <br>
+    {{ $errors->has('grupo') ? $errors->first('grupo') : '' }}
+    @else
     <div class="form-group">
         <label for="">Grupo</label>
             <input type="text" class="form-control" name="grupo" value="{{ $pontuacao->grupo ?? old('grupo') }}"
                 placeholder="Grupo">
             {{ $errors->has('grupo') ? $errors->first('grupo') : '' }}
     </div>
+    @endif
+    <br>
     <div class="form-group">
         <label for="">Pontos</label>
             <input type="numeric" class="form-control" name="pontos"
