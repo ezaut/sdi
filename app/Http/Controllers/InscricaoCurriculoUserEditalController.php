@@ -68,17 +68,18 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function show_inscricoes_user(User $id)
     {
-        //$user = Auth::user();
+        // busco as inscrições que contem o id do usuário
         $inscricoes = Inscricao_curriculo_user_edital::where('user_id', '=', $id)->get();
-        //$curr =
         return view("user.inscricoes", compact('inscricoes'));
     }
 
     public function show_inscricoes_edital(string $edital_id)
     {
+        // busco o edital em questao
         $edital = Edital::findOrFail($edital_id);
-        $inscricoes = Inscricao_curriculo_user_edital::where('edital_id', '=', $edital_id)->get();
-        //$curr =
+        // recupero as inscrições desse edital
+        $inscricoes = $edital->inscricao_curriculo_user_editals;
+        // recupero cada curriculo de cada inscricao
         return view("servidor.inscricoes", compact('inscricoes', 'edital'));
     }
 
