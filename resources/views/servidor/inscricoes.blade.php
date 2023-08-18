@@ -6,19 +6,19 @@
     <table class="data-table table stripe hover nowrap">
         <thead>
             <tr>
-                <th>Edital</th>
+                <th>Id do Candidato</th>
                 <th>Vaga escolhida</th>
                 <th>Data da inscrição</th>
-                <th>Situação</th>
+                <th>Id do Curriculo</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($inscricoes as $inscricao)
                 <tr>
-                    <td>{{ $inscricao->edital_id }}</td>
+                    <td>{{ $inscricao->user_id }}</td>
                     <td>{{ $inscricao->vaga_escolhida }}</td>
                     <td>{{ date('d/m/Y', strtotime($inscricao->dt_inscricao)) }}</td>
-
+                    <td>{{ $inscricao->curriculo_id }}</td>
                 </tr>
             @endforeach
         </tbody>
