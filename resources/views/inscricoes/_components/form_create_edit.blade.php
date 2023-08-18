@@ -25,20 +25,20 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Nome da mãe</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="nome_mae">
+                <input class="form-control" type="text" name="nome_mae" value="{{ Auth::user()->nome_mae }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">Data de
                 nascimento</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" placeholder="Escolha uma data ou digite" type="date" name="dt_nascimento">
+                <input class="form-control" placeholder="Escolha uma data ou digite" type="date" name="dt_nascimento" value="{{ Auth::user()->dt_nascimento }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Escolaridade</label>
             <div class="col-sm-12 col-md-10">
-                <select class="form-control" id="exampleFormControlSelect1" name="escolaridade">
+                <select class="form-control" id="exampleFormControlSelect1" name="escolaridade" value="{{ Auth::user()->escolaridade }}" disabled>
                     <option selected disabled>-- Escolaridade --</option>
                     <option>Ensino Médio Completo</option>
                     <option>Ensino Superior Inconpleto</option>
@@ -51,75 +51,74 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Grupo</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="grupo">
+                <input class="form-control" type="text" name="grupo" value="{{ Auth::user()->grupo }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Endereço</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="endereco" placeholder="Rua">
+                <input class="form-control" type="text" name="endereco" placeholder="Rua" value="{{ Auth::user()->endereco }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Complemento</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="complemento" placeholder="Complemento">
+                <input class="form-control" type="text" name="complemento" placeholder="Complemento" value="{{ Auth::user()->complemento }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Bairro</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="bairro" placeholder="Bairro">
+                <input class="form-control" type="text" name="bairro" placeholder="Bairro" value="{{ Auth::user()->bairro }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Cidade</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="cidade" placeholder="Cidade">
+                <input class="form-control" type="text" name="cidade" placeholder="Cidade" value="{{ Auth::user()->cidade}}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">UF</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="uf" placeholder="UF" size="2">
+                <input class="form-control" type="text" name="uf" placeholder="UF" size="2" value="{{ Auth::user()->uf }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">CEP</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="cep" placeholder="CEP">
+                <input class="form-control" type="text" name="cep" placeholder="CEP" value="{{ Auth::user()->cep }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">RG</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="numeric" name="rg" placeholder="RG">
+                <input class="form-control" type="numeric" name="rg" placeholder="RG" value="{{ Auth::user()->rg }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Orgão expedidor</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="org_exp" placeholder="Orgão expedidor">
+                <input class="form-control" type="text" name="org_exp" placeholder="Orgão expedidor" value="{{ Auth::user()->org_exp }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Data Emissão</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="date" name="dt_emissao" placeholder="Data Emissão">
+                <input class="form-control" type="date" name="dt_emissao" placeholder="Data Emissão" value="{{ Auth::user()->dt_emissao }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Telefone</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="tel" name="telefone" placeholder="12 93456-7890"
-                    pattern="[0-9]{2} 9[0-9]{4}-[0-9]{4}">
+                <input class="form-control" type="tel" name="telefone" placeholder="12 93456-7890" value="{{ Auth::user()->telefone }}" disabled>
             </div>
         </div>
         <div class="form-group row">
             <!-- aqui, ao inves de sexo, gênero. Genero é como a pessoa se vê -->
             <label class="col-sm-12 col-md-2 col-form-label">Qual o seu gênero</label>
             <div class="col-sm-12 col-md-10">
-                <select class="form-control" id="Selectsexo" onchange="habilitarCampos()" name="sexo">
+                <select class="form-control" id="Selectsexo" onchange="habilitarCampos()" name="sexo" value="{{ Auth::user()->sexo }}" disabled>
                     <option selected disabled>-- Gênero --</option>
                     <option>Feminino</option>
                     <option>Masculino</option>
@@ -127,7 +126,7 @@
                     <option>Prefiro não dizer</option>
                 </select>
                 <!-- caso Outro, habilitar -->
-                <input class="form-control" id="InputSelectsexo" type="text" name="sexo" disabled>
+                <input class="form-control" id="InputSelectsexo" type="text" name="sexo" value="{{ Auth::user()->sexo }}" disableddisabled>
             </div>
         </div>
         <label class="col-sm-12 col-md-2 col-form-label">Processo Seletivo</label>
