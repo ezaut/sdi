@@ -9,6 +9,7 @@ use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\PontuacoeController;
 use App\Http\Controllers\CurriculoController;
 use App\Http\Controllers\HomeSeadController;
+use App\Http\Controllers\UserController;
 
 
 
@@ -37,6 +38,8 @@ Route::middleware(['auth', 'user-access:user', 'PreventBackHistory'])->group(fun
     Route::resource('/edital', EditalController::class);
     Route::resource('/oferta', OfertaController::class);
     Route::resource('/curriculo', CurriculoController::class);
+    Route::get('/candidato/informar_dados/{user_id}', [UserController::class, 'add_user_info_show'])->name('candidato.info');
+    Route::put('/candidato/informar_dados/{user_id}', [UserController::class, 'add_user_info_store'])->name('candidato.dados');
 
 });
 
