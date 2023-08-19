@@ -31,7 +31,7 @@
 
 
         <div class="pb-20">
-            <table class="data-table table stripe hover nowrap">
+            <table class="data-table table stripe hover display">
                 <thead>
                     <tr>
                         <th>#</th>

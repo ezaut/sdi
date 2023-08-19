@@ -6,7 +6,7 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Nome da mãe</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="nome_mae">
+                <input class="form-control" type="text" name="nome_mae" value="{{ $user->nome_mae ?? old('nome_mae') }}">
             </div>
             @error('nome_mae')
             <div class="alert alert-danger">{{ $message }}</div>

@@ -16,15 +16,15 @@
         </div>
 
         <div class="">
-            <div style="width: 30%; margin-left: auto; margin-right: auto;">
-                <table class="data-table table stripe hover nowrap" style="text-align: left">
+            <div style="width: 70%; margin-left: auto; margin-right: auto;">
+                <table class="data-table table stripe hover display" style="text-align: left">
                     <tr>
                         <td>ID:</td>
                         <td>{{ $edital->id }}</td>
                     </tr>
                     <tr>
                         <td>Nome:</td>
-                        <td>{{ $edital->nome_edital }}</td>
+                        <td class="table-cell">{{ $edital->nome_edital }}</td>
                     </tr>
                     <tr>
                         <td>Data de início:</td>
@@ -44,6 +44,5 @@
         @endauth
 
     </div>
-
 @endsection
 

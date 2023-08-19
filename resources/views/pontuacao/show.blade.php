@@ -16,7 +16,7 @@
     </div>
 
     <div class="">
-        <div style="width: 30%; margin-left: auto; margin-right: auto;">
+        <div style="width: 70%; margin-left: auto; margin-right: auto;">
             <table style="text-align: left" class="data-table table stripe hover nowrap">
                 <tr>
                     <td>Edital:</td>
