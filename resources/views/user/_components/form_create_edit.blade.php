@@ -1,173 +1,336 @@
-<form method="post" action="{{ route('candidato.dados',  [$user->id]) }}">
-    @csrf
-    @method('PUT')
-    <div class="pd-20 card-box mb-30">
+<div class="pd-20 card-box mb-30">
+    <div class="clearfix">
+        <h4 class="text-blue h4">Cadastro do candidato</h4>
+        <p class="mb-30"></p>
+    </div>
+    <div class="wizard-content">
+        @if(isset($user->id))
+        <form action="{{ route('candidato.update', [$user]) }}" id="form" method="post"
+            class="tab-wizard wizard-circle wizard">
+            @csrf
+            @method('PUT')
+            @else
+            <form action="{{route('candidato.create')}}" id="form" method="post"
+                class="tab-wizard wizard-circle wizard">
+                @csrf
+                @endif
+                @if (Session::get('fail'))
+                <div class="alert alert-danger">
+                    {{Session::get('fail')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+                @if (Session::get('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+                <h5>Informações de Login</h5>
+                <section>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome completo :</label>
+                                <input name="name" id="name" type="text" class="form-control"
+                                    value="{{ Auth::user()->name }}" disabled />
+                            </div>
+                            @error('name')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>CPF :</label>
+                                <input class="form-control" id="cpf" type="numeric" name="cpf" value="{{ Auth::user()->cpf }}" disabled>
+                            </div>
+                            @error('cpf')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Email :</label>
+                                <input class="form-control" id="email" type="email" name="email" value="{{ Auth::user()->email }}" disabled>
+                            </div>
+                            @error('email')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Password :</label>
+                                <input name="password" id="password" type="password" class="form-control"
+                                value="{{ Auth::user()->password }}" disabled/>
+                            </div>
+                            @error('password')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                </section>
+                <!-- Step 2 -->
+                <h5>Informações Pessoais</h5>
+                <section>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Gênero :</label>
+                                <select class="form-control" id="Selectsexo" onchange="habilitarCampos()" name="sexo">
+                                    <option selected disabled>-- Gênero --</option>
+                                    <option>Feminino</option>
+                                    <option>Masculino</option>
+                                    <option value="outro">Outro(Qual?)</option>
+                                    <option>Prefiro não dizer</option>
+                                </select>
+                                <!-- caso Outro, habilitar -->
+                                <input class="form-control" id="InputSelectsexo" type="text" name="sexo" placeholder="Qual?" disabled>
+                            </div>
+                            @error('sexo')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome da Mãe :</label>
+                                <input id="nome_mae" name="nome_mae" type="text" placeholder="Nome da mãe" class="form-control"
+                                    value="{{old('nome_mae')}}" required />
+                            </div>
+                            @error('nome_mae')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Data de Nascimento :</label>
+                                <input id="date" name="dt_nascimento" type="date" class="form-control"
+                                    value="{{old('dt_nascimento')}}" required />
+                            </div>
+                            @error('dt_nascimento')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Escolaridade :</label>
+                                <select class="form-control" id="escolaridade" name="escolaridade">
+                                    <option selected disabled>-- Escolaridade --</option>
+                                    <option>Ensino Médio Completo</option>
+                                    <option>Ensino Superior Incompleto</option>
+                                    <option>Ensino Superior Completo</option>
+                                    <option>Mestre</option>
+                                    <option>Doutor</option>
+                                </select>
+                            </div>
+                            @error('escolaridade')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Grupo :</label>
+                                <input id="grupo" name="grupo" type="text" class="form-control" value="{{old('grupo')}}"
+                                    required />
+                            </div>
+                            @error('grupo')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                </section>
+                <!-- Step 3 -->
+                <h5>Endereço</h5>
+                <section>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Endereço :</label>
+                                <input id="endereco" name="endereco" type="text"  placeholder="Rua" class="form-control"
+                                    value="{{old('endereco')}}" required />
+                            </div>
+                            @error('endereco')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                            <div class="form-group">
+                                <label>Complemento :</label>
+                                <input id="complemento" name="complemento" type="text"  placeholder="Complemento" class="form-control"
+                                    value="{{old('complemento')}}" />
+                            </div>
+                            @error('complemento')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                            <div class="form-group">
+                                <label>Bairro :</label>
+                                <input id="bairro" name="bairro" type="text" placeholder="Bairro" class="form-control"
+                                    value="{{old('bairro')}}" required />
+                            </div>
+                            @error('bairro')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Cidade :</label>
+                                <input id="cidade" name="cidade" type="text" placeholder="Cidade" class="form-control"
+                                    value="{{old('cidade')}}" required />
+                            </div>
+                            @error('cidade')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                            <div class="form-group">
+                                <label>UF :</label>
+                                <input id="uf" name="uf" type="text" class="form-control" placeholder="UF"  minlength="2" maxlength="2"
+                                    value="{{old('uf')}}" required />
+                            </div>
+                            @error('uf')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                            <div class="form-group">
+                                <label>CEP :</label>
+                                <input id="cep" name="cep" type="text" class="form-control" maxlength="10"
+                                    placeholder="Formato: 00.000-000" value="{{old('cep')}}" required />
+                            </div>
+                            @error('cep')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                </section>
+                <!-- Step 4 -->
+                <h5>Documentos Pessoais</h5>
+                <section>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>RG :</label>
+                                <input id="rg" name="rg" type="numeric" step="1" placeholder="RG" class="form-control"
+                                    value="{{old('rg')}}" required />
+                            </div>
+                            @error('rg')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                            <div class="form-group">
+                                <label>Orgão Expedidor :</label>
+                                <input id="org_exp" name="org_exp" type="text" placeholder="Orgão Expedidor" class="form-control"
+                                    value="{{old('org_exp')}}" required />
+                            </div>
+                            @error('org_exp')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Data de Emissão :</label>
+                                <input id="date" name="dt_emissao" type="date" class="form-control"
+                                    value="{{old('dt_emissao')}}" required />
+                            </div>
+                            @error('dt_emissao')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
+                            <div class="form-group">
+                                <label>Telefone :</label>
+                                <input id="tel" name="telefone" type="tel" class="form-control"
+                                    pattern="[0-9]{2}9[0-9]{4}-[0-9]{4}" value="{{old('telefone')}}" placeholder="12 93456-7890" required />
+                            </div>
+                            @error('telefone')
+                            <div class="d-block text-danger" style="margin-top: -25px;">
+                                {{$message}}
+                            </div>
+                            @enderror
 
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Nome da mãe</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="nome_mae" value="{{ $user->nome_mae ?? old('nome_mae') }}">
+                        </div>
+                    </div>
+                </section>
+            </form>
+    </div>
+</div>
+@if (Session::get('success'))
+<!-- success Popup html Start -->
+<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Formulário enviado!</h3>
+                <div class="mb-30 text-center">
+                    <img src="/back/vendors/images/success.png" />
+                </div>
+                Formulário enviado com sucesso!
             </div>
-            @error('nome_mae')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">Data de
-                nascimento</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" placeholder="Escolha uma data ou digite" type="date" name="dt_nascimento">
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    Feito
+                </button>
             </div>
-            @error('dt_nascimento')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Escolaridade</label>
-            <div class="col-sm-12 col-md-10">
-                <select class="form-control" id="exampleFormControlSelect1" name="escolaridade">
-                    <option selected disabled>-- Escolaridade --</option>
-                    <option>Ensino Médio Completo</option>
-                    <option>Ensino Superior Incompleto</option>
-                    <option>Ensino Superior Completo</option>
-                    <option>Mestre</option>
-                    <option>Doutor</option>
-                </select>
-            </div>
-            @error('escolaridade')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Grupo</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="grupo">
-            </div>
-            @error('grupo')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Endereço</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="endereco" placeholder="Rua">
-            </div>
-            @error('endereco')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Complemento</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="complemento" placeholder="Complemento">
-            </div>
-            @error('complemento')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Bairro</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="bairro" placeholder="Bairro">
-            </div>
-            @error('bairro')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Cidade</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="cidade" placeholder="Cidade">
-            </div>
-            @error('cidade')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">UF</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="uf" placeholder="UF" size="2">
-            </div>
-            @error('uf')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">CEP</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="cep" placeholder="CEP">
-            </div>
-            @error('cep')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">RG</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="numeric" name="rg" placeholder="RG">
-            </div>
-            @error('rg')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Orgão expedidor</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" name="org_exp" placeholder="Orgão expedidor">
-            </div>
-            @error('org_exp')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Data Emissão</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="date" name="dt_emissao" placeholder="Data Emissão">
-            </div>
-            @error('dt_emissao')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Telefone</label>
-            <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="tel" name="telefone" placeholder="12 93456-7890">
-            </div>
-            @error('telefone')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group row">
-            <!-- aqui, ao inves de sexo, gênero. Genero é como a pessoa se vê -->
-            <label class="col-sm-12 col-md-2 col-form-label">Qual o seu gênero</label>
-            <div class="col-sm-12 col-md-10">
-                <select class="form-control" id="Selectsexo" onchange="habilitarCampos()" name="sexo">
-                    <option selected disabled>-- Gênero --</option>
-                    <option>Feminino</option>
-                    <option>Masculino</option>
-                    <option value="outro">Outro(Qual?)</option>
-                    <option>Prefiro não dizer</option>
-                </select>
-                <!-- caso Outro, habilitar -->
-                <input class="form-control" id="InputSelectsexo" type="text" name="sexo" disabled>
-            </div>
-            @error('sexo')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
         </div>
     </div>
-    <div class="actions clearfix" style="padding: 10px">
-        <ul role="menu" aria-label="Pagination">
-            <button class="btn btn-primary" type="submit">
-                Cadastrar
-            </button>
-            <button type="cancel" class="btn btn-danger">
-                Cancelar
-            </button>
-        </ul>
+</div>
+<!-- success Popup html End -->
+@else
+<!-- fail Popup html Start -->
+<div class="modal fade" id="fail-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Formulário não enviado!</h3>
+                <div class="mb-30 text-center">
+                    <img src="/back/vendors/images/cross.png" />
+                </div>
+                Formulário não enviado, tente fazer o cadastro outra vez!
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    Tente outra vez
+                </button>
+            </div>
+        </div>
     </div>
-
-</form>
+</div>
+<!-- fail Popup html End -->
+@endif
 <script>
     function habilitarCampos() {
 	if($("#Selectsexo").val() == 'outro') {

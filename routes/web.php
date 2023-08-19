@@ -38,8 +38,11 @@ Route::middleware(['auth', 'user-access:user', 'PreventBackHistory'])->group(fun
     Route::resource('/edital', EditalController::class);
     Route::resource('/oferta', OfertaController::class);
     Route::resource('/curriculo', CurriculoController::class);
-    Route::get('/candidato/informar_dados/{user_id}', [UserController::class, 'add_user_info_show'])->name('candidato.info');
-    Route::put('/candidato/informar_dados/{user_id}', [UserController::class, 'add_user_info_store'])->name('candidato.dados');
+    //Route::get('/candidato/informar_dados/{user}', [UserController::class, 'add_user_info_show'])->name('candidato.show');
+    Route::get('/candidato/informar_dados/', [UserController::class, 'add_user_info_create'])->name('candidato.create');
+    Route::post('/candidato/informar_dados/', [UserController::class, 'add_user_info_store'])->name('candidato.store');
+    Route::post('/candidato/informar_dados/{user}/editar', [UserController::class, 'add_user_info_edit'])->name('candidato.edit');
+    Route::put('/candidato/informar_dados/{user}', [UserController::class, 'add_user_info_update'])->name('candidato.update');
 
 });
 

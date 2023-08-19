@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Minhas Inscrições')
 @section('content')
     <h1>Minhas Inscrições</h1>
 
