@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,7 +37,7 @@ class User extends Authenticatable
      */
     public function curriculo(): HasOne
     {
-        return $this->hasOne(curriculo::class);
+        return $this->hasOne(Curriculo::class);
     }
 
     /**
