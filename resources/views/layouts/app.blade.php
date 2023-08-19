@@ -311,7 +311,7 @@
                             @auth
                             @if (Auth::user()->type == 'user' && Route::has('home'))
                                 <li><a href="{{ route('inscricao.index')}}">Fazer inscrição</a></li>
-                                <li><a href="{{ route('candidato.create') }}">Dados pessoais</a></li>
+                                <li><a href="{{ route('candidato.edit', Auth::user()->id) }}">Dados pessoais</a></li>
                                 <li><a href="{{ route('inscricoes.show', Auth::user()->id) }}">Minhas inscrições</a></li>
                             </ul>
                         </li>

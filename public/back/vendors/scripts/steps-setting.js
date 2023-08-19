@@ -13,10 +13,9 @@ $(".tab-wizard").steps({
 
 	},
 	onFinished: function (event, currentIndex) {
-        $("#form").submit();
         $('#success-modal').modal('show');
         $('#fail-modal').modal('show');
-
+        $("#form").submit();
 
 	}
 });

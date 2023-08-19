@@ -90,7 +90,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Gênero :</label>
-                                <select class="form-control" id="Selectsexo" onchange="habilitarCampos()" name="sexo">
+                                <select class="form-control" id="Selectsexo" onchange="habilitarCampos()" name="sexo" >
                                     <option selected disabled>-- Gênero --</option>
                                     <option>Feminino</option>
                                     <option>Masculino</option>
@@ -110,7 +110,7 @@
                             <div class="form-group">
                                 <label>Nome da Mãe :</label>
                                 <input id="nome_mae" name="nome_mae" type="text" placeholder="Nome da mãe" class="form-control"
-                                    value="{{old('nome_mae')}}" required />
+                                value="{{ $user->nome_mae ?? old('nome_mae') }}" required />
                             </div>
                             @error('nome_mae')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -122,7 +122,7 @@
                             <div class="form-group">
                                 <label>Data de Nascimento :</label>
                                 <input id="date" name="dt_nascimento" type="date" class="form-control"
-                                    value="{{old('dt_nascimento')}}" required />
+                                value="{{ $user->dt_nascimento ?? old('dt_nascimento') }}" required />
                             </div>
                             @error('dt_nascimento')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -151,7 +151,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Grupo :</label>
-                                <input id="grupo" name="grupo" type="text" class="form-control" value="{{old('grupo')}}"
+                                <input id="grupo" name="grupo" type="text" class="form-control" value="{{ $user->grupo ?? old('grupo') }}"
                                     required />
                             </div>
                             @error('grupo')
@@ -170,7 +170,7 @@
                             <div class="form-group">
                                 <label>Endereço :</label>
                                 <input id="endereco" name="endereco" type="text"  placeholder="Rua" class="form-control"
-                                    value="{{old('endereco')}}" required />
+                                value="{{ $user->endereco ?? old('endereco') }}" required />
                             </div>
                             @error('endereco')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -180,7 +180,7 @@
                             <div class="form-group">
                                 <label>Complemento :</label>
                                 <input id="complemento" name="complemento" type="text"  placeholder="Complemento" class="form-control"
-                                    value="{{old('complemento')}}" />
+                                value="{{ $user->complemento ?? old('complemento') }}" />
                             </div>
                             @error('complemento')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -190,7 +190,7 @@
                             <div class="form-group">
                                 <label>Bairro :</label>
                                 <input id="bairro" name="bairro" type="text" placeholder="Bairro" class="form-control"
-                                    value="{{old('bairro')}}" required />
+                                value="{{ $user->bairro ?? old('bairro') }}" required />
                             </div>
                             @error('bairro')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -202,7 +202,7 @@
                             <div class="form-group">
                                 <label>Cidade :</label>
                                 <input id="cidade" name="cidade" type="text" placeholder="Cidade" class="form-control"
-                                    value="{{old('cidade')}}" required />
+                                value="{{ $user->cidade ?? old('cidade') }}" required />
                             </div>
                             @error('cidade')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -212,7 +212,7 @@
                             <div class="form-group">
                                 <label>UF :</label>
                                 <input id="uf" name="uf" type="text" class="form-control" placeholder="UF"  minlength="2" maxlength="2"
-                                    value="{{old('uf')}}" required />
+                                value="{{ $user->uf ?? old('uf') }}" required />
                             </div>
                             @error('uf')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -222,7 +222,7 @@
                             <div class="form-group">
                                 <label>CEP :</label>
                                 <input id="cep" name="cep" type="text" class="form-control" maxlength="10"
-                                    placeholder="Formato: 00.000-000" value="{{old('cep')}}" required />
+                                    placeholder="Formato: 00.000-000" value="{{ $user->cep ?? old('cep') }}" required />
                             </div>
                             @error('cep')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -240,7 +240,7 @@
                             <div class="form-group">
                                 <label>RG :</label>
                                 <input id="rg" name="rg" type="numeric" step="1" placeholder="RG" class="form-control"
-                                    value="{{old('rg')}}" required />
+                                value="{{ $user->rg ?? old('rg') }}" required />
                             </div>
                             @error('rg')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -250,7 +250,7 @@
                             <div class="form-group">
                                 <label>Orgão Expedidor :</label>
                                 <input id="org_exp" name="org_exp" type="text" placeholder="Orgão Expedidor" class="form-control"
-                                    value="{{old('org_exp')}}" required />
+                                value="{{ $user->org_exp ?? old('org_exp') }}" required />
                             </div>
                             @error('org_exp')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -262,7 +262,7 @@
                             <div class="form-group">
                                 <label>Data de Emissão :</label>
                                 <input id="date" name="dt_emissao" type="date" class="form-control"
-                                    value="{{old('dt_emissao')}}" required />
+                                value="{{ $user->dt_emissao ?? old('dt_emissao') }}" required />
                             </div>
                             @error('dt_emissao')
                             <div class="d-block text-danger" style="margin-top: -25px;">
@@ -272,7 +272,7 @@
                             <div class="form-group">
                                 <label>Telefone :</label>
                                 <input id="tel" name="telefone" type="tel" class="form-control"
-                                    pattern="[0-9]{2}9[0-9]{4}-[0-9]{4}" value="{{old('telefone')}}" placeholder="12 93456-7890" required />
+                                    pattern="[0-9]{2}9[0-9]{4}-[0-9]{4}" value="{{ $user->telefone ?? old('telefone') }}" placeholder="12 93456-7890" required />
                             </div>
                             @error('telefone')
                             <div class="d-block text-danger" style="margin-top: -25px;">
