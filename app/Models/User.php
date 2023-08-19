@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,6 +28,14 @@ class User extends Authenticatable
     public function inscricao_curriculo_user_editals(): hasMany
     {
         return $this->hasMany(Inscricao_curriculo_user_edital::class);
+    }
+
+    /**
+     * Get the curriculo associated with the user.
+     */
+     public function curriculo(): HasOne
+    {
+        return $this->hasOne(Curriculo::class);
     }
 
     /**

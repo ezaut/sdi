@@ -6,6 +6,11 @@
     <form method="post" action="{{ route('curriculo.store') }}">
         @csrf
         @endif
+        <div>
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            {{ $errors->has('user_id') ? $errors->first('user_id') : '' }}
+        </div>
+
         <div class="form-group">
             <label for="">Grupo</label>
             <input type="text" class="form-control" name="grupo" value="{{ $curriculo->grupo ?? old('grupo') }}"
@@ -15,8 +20,7 @@
         <div class="form-group">
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Descrição</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="descricao"
-                    value="{{ $curriculo->descricao ?? old('descricao') }}" rows="3">{{ $curriculo->descricao ?? old('descricao') }}</textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="descricao" value="{{ $curriculo->descricao ?? old('descricao') }}" rows="3">{{ $curriculo->descricao ?? old('descricao') }}</textarea>
             </div>
             {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
         </div>

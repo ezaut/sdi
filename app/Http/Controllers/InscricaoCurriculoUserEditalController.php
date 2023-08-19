@@ -19,6 +19,7 @@ class InscricaoCurriculoUserEditalController extends Controller
     {
         $edital = Edital::orderBy('created_at', 'DESC')->get();
         $curriculo = Curriculo::orderBy('created_at', 'DESC')->get();
+        //$curriculo = Curriculo::where('user_id', $id)->with(['edital', 'user', 'curriculo'])->orderBy('created_at', 'DESC')->get();
 
         return view('inscricoes.inscricao', compact('edital', 'curriculo'));
     }
@@ -58,6 +59,7 @@ class InscricaoCurriculoUserEditalController extends Controller
         $request->validate($regras, $feedback);
 
         //User::findOrFail($request->id)->update($request->all());
+        $inscricao->user->update($request->all());
         Inscricao_curriculo_user_edital::create($request->all());
 
         return redirect()->route('home')->with('success', 'A inscrição foi realizada com sucesso');
