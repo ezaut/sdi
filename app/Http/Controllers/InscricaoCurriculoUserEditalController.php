@@ -18,7 +18,9 @@ class InscricaoCurriculoUserEditalController extends Controller
     public function index()
     {
         $edital = Edital::orderBy('created_at', 'DESC')->get();
-        $curriculo = Curriculo::orderBy('created_at', 'DESC')->get();
+        $user = User::findOrFail(Auth::user()->id);
+        $curriculo = $user->curriculo;
+
 
         return view('inscricoes.inscricao', compact('edital', 'curriculo'));
     }
@@ -43,22 +45,26 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Inscricao_curriculo_user_edital $inscricao)
+    public function store(Request $request)
     {
         $regras = [
             'vaga_escolhida'    =>'required',
-
         ];
 
         $feedback = [
             'required'          => 'O campo :attribute deve ser preenchido',
-
         ];
 
         $request->validate($regras, $feedback);
-
-        //User::findOrFail($request->id)->update($request->all());
-        Inscricao_curriculo_user_edital::create($request->all());
+        $user = User::find($request->user_id);
+        $teste_inscricao = Inscricao_curriculo_user_edital::where('user_id', '=', $user->id)->get();
+        /**
+         * verificar para nao permetir inscrição na mesma vaga duas vezes
+         */
+        $curriculo = $user->curriculo;
+        $data = $request->all();
+        $data['curriculo_id'] = strval($curriculo->id);
+        Inscricao_curriculo_user_edital::create($data);
 
         return redirect()->route('home')->with('success', 'A inscrição foi realizada com sucesso');
     }
@@ -66,10 +72,11 @@ class InscricaoCurriculoUserEditalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show_inscricoes_user(User $id)
+    public function show_inscricoes_user(string $id)
     {
         // busco as inscrições que contem o id do usuário
         $inscricoes = Inscricao_curriculo_user_edital::where('user_id', '=', $id)->get();
+
         return view("user.inscricoes", compact('inscricoes'));
     }
 
@@ -78,7 +85,7 @@ class InscricaoCurriculoUserEditalController extends Controller
         // busco o edital em questao
         $edital = Edital::findOrFail($edital_id);
         // recupero as inscrições desse edital
-        $inscricoes = $edital->inscricao_curriculo_user_editals;
+        $inscricoes = Inscricao_curriculo_user_edital::where('edital_id', $edital_id)->with(['edital', 'user', 'curriculo'])->orderBy('created_at', 'DESC')->get();
         // recupero cada curriculo de cada inscricao
         return view("servidor.inscricoes", compact('inscricoes', 'edital'));
     }
@@ -90,15 +97,26 @@ class InscricaoCurriculoUserEditalController extends Controller
     {
 
 
-        return Response()->json($inscricao);
+        return view("servidor.edit", compact('inscricao'));
     }
 
+
+    /**
+     * Show the specified inscrição
+     */
+    public function show(Inscricao_curriculo_user_edital $inscricao)
+    {
+        return view("servidor.show", compact('inscricao'));
+        //return response()->route('servidor.show')->json($inscricao);
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Inscricao_curriculo_user_edital $inscricao)
     {
-        //
+        $inscricao->curriculo->update($request->all());
+
+        return redirect()->route('servidor.home')->with('success', 'Inscrição atualizada com sucesso');
     }
 
     /**

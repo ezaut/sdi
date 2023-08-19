@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curriculo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -11,11 +12,17 @@ class CurriculoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index( Request $id )
     {
-        $curriculos = Curriculo::orderBy('created_at', 'DESC')->get();
 
-        return view('curriculo.index', compact('curriculos'));
+        $user = User::findOrFail($id);
+
+        if($user->curriculo != null)
+            $curriculo = $user->curriculo;
+        else
+          $curriculo = null;
+
+        return view('curriculo.index', compact('curriculo'));
     }
 
     /**
