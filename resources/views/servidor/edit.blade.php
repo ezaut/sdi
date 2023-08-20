@@ -10,7 +10,7 @@
 
         <div class="menu">
             <ul>
-                <li><a href="{{ route('home') }}">Voltar</a></li>
+                <li><a href="#" onclick="goBack()">Voltar</a></li>
                 <li><a href="">Consulta</a></li>
             </ul>
         </div>
@@ -23,5 +23,11 @@
         </div>
 
     </div>
-
+    @push('backHistory_scripts')
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+    @endpush
 @endsection

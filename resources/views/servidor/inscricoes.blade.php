@@ -4,7 +4,8 @@
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">Lista de inscrições {{ $edital->nome_edital }}</h4>
+        <p class="text-info h4">Lista de inscrições em: <br> </p>
+            <h5>{{ $edital->nome_edital }}</h5>
     </div>
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">
