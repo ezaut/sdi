@@ -9,6 +9,11 @@
         <div class="pd-20">
             <h4 class="text-blue h4 text-center">Lista de Editais</h4>
         </div>
+        @if(Session::has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('success') }}
+            </div>
+        @endif
         <div class="pb-20">
             <table class="data-table table stripe hover display">
                 <thead>

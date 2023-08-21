@@ -300,9 +300,10 @@
                 Formulário enviado com sucesso!
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                <button type="button" class="btn btn-second" data-dismiss="modal">
                     Feito
                 </button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
         </div>
     </div>

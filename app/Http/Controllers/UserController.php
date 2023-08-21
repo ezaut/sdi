@@ -60,9 +60,11 @@ class UserController extends Controller
 
             $user = new User();
             $user->create($request->all());
-
+            return redirect()->route('home')->with('success', 'Seus dados foram atualizados com sucesso');
+        }else {
+            return redirect()->route('candidato.edit')->with('danger', 'Erro ao atualizar seus dados, faltou atualizar algum campo.');
         }
-        return redirect()->route('home')->with('success', 'Seus dados foram atualizados com sucesso');
+
     }
 
     public function add_user_info_edit (String $id)
@@ -75,33 +77,44 @@ class UserController extends Controller
 
     public function add_user_info_update (Request $request, string $user)
     {
-        $regras = [
-            'nome_mae' => 'required',
-            'dt_nascimento' => 'required',
-            'escolaridade' => 'required',
-            'grupo' => 'required',
-            'endereco' => 'required',
-            'complemento' => 'required',
-            'bairro' => 'required',
-            'cidade' => 'required',
-            'uf' => 'required | min:2 | max:2',
-            'cep' => 'required | min:8 | max:10',
-            'rg' => 'required',
-            'org_exp' => 'required',
-            'dt_emissao' => 'required',
-            'telefone' => 'required',
-            'sexo' => 'required | min:1 | max:100',
+        if ($request->input('_token') !='') {
+                $regras = [
+                'nome_mae' => 'required',
+                'dt_nascimento' => 'required',
+                'escolaridade' => 'required',
+                'grupo' => 'required',
+                'endereco' => 'required',
+                'complemento' => 'required',
+                'bairro' => 'required',
+                'cidade' => 'required',
+                'uf' => 'required | min:2 | max:2',
+                'cep' => 'required | min:8 | max:10',
+                'rg' => 'required',
+                'org_exp' => 'required',
+                'dt_emissao' => 'required',
+                'telefone' => 'required',
+                'sexo' => 'required | min:1 | max:100',
 
-        ];
+            ];
 
-        $feedback = [
-            'required'          => 'O campo :attribute deve ser preenchido',
-
-        ];
-        $request->validate($regras, $feedback);
-        User::findOrFail($user)->update($request->all());
-
-
-        return redirect()->route('home')->with('success', 'Seus dados foram atualizados com sucesso');
+            $feedback = [
+                'required'          => 'O campo :attribute deve ser preenchido',
+                'string'        => 'O campo :attribute deve ser uma string.',
+                'nome_mae.min'  => 'O campo :attribute deve ter pelo menos :min caracteres.',
+                'unique'        => 'O campo :attribute já está sendo utilizado.',
+                'email'         => 'O campo :attribute deve ser um endereço de e-mail válido.',
+                'integer'       => 'O campo :attribute deve ser um número inteiro.',
+                'sexo.min'      => 'O campo :attribute deve ter pelo menos :min caracteres.',
+                'sexo.max'      => 'O campo :attribute não pode ser superior a :max.',
+                'date'          => 'O campo :attribute não é uma data válida.',
+                'uf.size'       => 'O campo :attribute deve ter só :min caracteres.',
+                'cep.size'      => 'O campo :attribute deve ter :min caracteres. Formato: 00.000-000',
+            ];
+            $request->validate($regras, $feedback);
+            User::findOrFail($user)->update($request->all());
+            return redirect()->route('home')->with('success', 'Seus dados foram atualizados com sucesso');
+        }else {
+            return redirect()->route('candidato.edit')->with('danger', 'Erro ao atualizar seus dados, faltou atualizar algum campo.');
+        }
     }
 }
