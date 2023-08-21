@@ -16,6 +16,7 @@
             <button type="submit" class="btn btn-block btn-success" >SALVAR</button>
         </div>
 </form>
+<!-- Aqui seria um script para trocar 0 e 1 por invalido e valido -->
 <script>
     function alterarValor() {
     var valido_invalido = {{ $inscricao->curriculo->valido_invalido ?? old('valido_invalido') }};

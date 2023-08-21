@@ -441,6 +441,7 @@
                 }
     </script>
     @stack('scripts')
+    @stack('backHistory_scripts')
 </body>
 
 </html>
