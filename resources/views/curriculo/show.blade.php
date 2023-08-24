@@ -2,47 +2,44 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Visualizar curriculo')
 @section('content')
 
+<div class="">
+
     <div class="">
-
-        <div class="">
-            <p>Visualizar Curriculo</p>
-        </div>
-
-        <div class="menu">
-            <ul>
-                <li><a href="{{ route('curriculo.index') }}">Voltar</a></li>
-                <li><a href="">Consulta</a></li>
-            </ul>
-        </div>
-
-        <div class="">
-            <div style="width: 30%; margin-left: auto; margin-right: auto;">
-                <table class="data-table table stripe hover nowrap" style="text-align: left">
-                    <tr>
-                        <td>ID:</td>
-                        <td>{{ $curriculo->id }}</td>
-                    </tr>
-                    <tr>
-                        <td>Grupo:</td>
-                        <td>{{ $curriculo->grupo }}</td>
-                    </tr>
-                    <tr>
-                        <td>Descrição:</td>
-                        <td>{{ $curriculo->descricao }}</td>
-                    </tr>
-                    <tr>
-                        <td>Link do documento:</td>
-                        <td>{{ $curriculo->link_documento }}</td>
-                    </tr>
-                    <tr>
-                        <td>Pontos:</td>
-                        <td>{{ $curriculo->pontos }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
+        <p>Visualizar Curriculo</p>
     </div>
 
-@endsection
+    <div class="menu">
+        <ul>
+            <li><a href="{{ route('curriculo.index') }}">Voltar</a></li>
+            <li><a href="">Consulta</a></li>
+        </ul>
+    </div>
 
+    <div class="">
+        <div class="pb-20" style="width: 70%; margin-left: auto; margin-right: auto;">
+            <table style="text-align: left" class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>ID:</th>
+                        <th>Grupo:</th>
+                        <th>Descrição:</th>
+                        <th>Link do documento:</th>
+                        <th>Pontos:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $curriculo->id }}</td>
+                        <td>{{ $curriculo->grupo }}</td>
+                        <td>{{ $curriculo->descricao }}</td>
+                        <td>{{ $curriculo->link_documento }}</td>
+                        <td>{{ $curriculo->pontos }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@endsection

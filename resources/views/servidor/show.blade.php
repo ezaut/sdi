@@ -4,9 +4,7 @@
 
     <div class="">
 
-        <div class="">
-            <p>Visualizar Inscrição</p>
-        </div>
+
 
         <div class="menu">
             <ul>
@@ -19,7 +17,7 @@
             <div style="width: 70%; margin-left: auto; margin-right: auto;">
                 <table class="data-table table stripe hover display" style="text-align: left">
                     <tr>
-                        <td>ID:</td>
+                        <th>ID:</th>
                         <td>{{ $inscricao->id }}</td>
                     </tr>
                     <tr>
@@ -40,14 +38,14 @@
                     </tr>
                     <tr>
                         <td>Situação da inscrição:</td>
-                        <td>{{ $inscricao->curriculo->valido_invalido ? 'Válido' : 'Inválido' }}</td>
+                        <td>{{ $inscricao->curriculo->valido_invalido ? 'Válida' : 'Inválida' }}</td>
                     </tr>
                 </table>
 
             </div>
         </div>
         @auth
-            <a type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $inscricao->edital_id) }}">Acessar a lista de inscritos</a>
+            <a type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $inscricao->edital_id) }}">Lista de inscritos</a>
         @endauth
 
     </div>

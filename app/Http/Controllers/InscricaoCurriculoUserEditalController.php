@@ -114,9 +114,9 @@ class InscricaoCurriculoUserEditalController extends Controller
      */
     public function update(Request $request, Inscricao_curriculo_user_edital $inscricao)
     {
-        $inscricao->curriculo->update($request->all());
+        $inscricao->curriculo()->update($request->except(['_token', '_method']));
 
-        return redirect()->route('servidor.home')->with('success', 'Inscrição atualizada com sucesso');
+        return redirect()->route('servidor.inscricoes.show', $inscricao->edital_id)->with('success', 'Inscrição atualizada com sucesso');
     }
 
     /**

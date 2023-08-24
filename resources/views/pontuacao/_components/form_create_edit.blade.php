@@ -37,9 +37,7 @@
     </div>
     <div class="form-group">
         <label for="descricao">Descrição</label>
-        <textarea name="descricao" id="descricao" cols="48" rows="5" >
-    {{ $pontuacao->descricao ?? old('descricao') }}
-        </textarea>
+        <textarea name="descricao" id="descricao" cols="48" rows="5" >{{ $pontuacao->descricao ?? old('descricao') }}</textarea>
         {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
     </div>
 

@@ -12,17 +12,11 @@ class CurriculoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index( Request $id )
+    public function index()
     {
+        $curriculos = Curriculo::all();
 
-        $user = User::findOrFail($id);
-
-        if($user->curriculo != null)
-            $curriculo = $user->curriculo;
-        else
-          $curriculo = null;
-
-        return view('curriculo.index', compact('curriculo'));
+        return view('curriculo.index', compact('curriculos'));
     }
 
     /**
@@ -39,16 +33,16 @@ class CurriculoController extends Controller
     public function store(Request $request)
     {
         $regras = [
-            'grupo' => 'required|unique:curriculos,grupo,',
+            'grupo' => 'required',
             'descricao' => 'required',
             'link_documento' => 'required',
             'pontos' => 'required',
-            'user_id' => 'required',
+            'user_id' => 'required|unique:curriculos,user_id,',
         ];
 
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido',
-            'unique' => 'O campo :attribute já está sendo utilizado.',
+            'user_id.unique' => 'Curriculo não foi adicionado porque você já tem um no sistema.',
         ];
 
         $request->validate($regras, $feedback);
@@ -56,6 +50,7 @@ class CurriculoController extends Controller
         Curriculo::create($request->all());
 
         return redirect()->route('curriculo.index')->with('success', 'Curriculo adicionado com sucesso');
+
     }
 
     /**
@@ -84,15 +79,16 @@ class CurriculoController extends Controller
     public function update(Request $request, string $id)
     {
         $regras = [
-            'grupo' => 'required|unique:curriculos,grupo,',
+            'grupo' => 'required',
             'descricao' => 'required',
             'link_documento' => 'required',
             'pontos' => 'required',
+            'user_id' => 'required|unique:curriculos,user_id,',
         ];
 
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido',
-            'unique' => 'O campo :attribute já está sendo utilizado.',
+            'user_id.unique' => 'O campo :attribute já está sendo utilizado.',
         ];
 
         $request->validate($regras, $feedback);

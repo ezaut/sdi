@@ -4,13 +4,10 @@
 
 <div class="">
 
-    <div class="">
-        <p>Adicionar Currículo</p>
-    </div>
     @if(Session::has('danger'))
-    <div class="alert alert-danger" role="alert">
-        {{ Session::get('danger') }}
-    </div>
+        <div class="alert alert-danger" role="alert">
+            {{ Session::get('danger') }}
+        </div>
     @endif
     <div class="menu">
         <ul>

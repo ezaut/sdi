@@ -17,7 +17,6 @@
         <ul>
             <li><a href="{{ route('inscricao.index') }}">Voltar</a></li>
             <li><a href="">{{ $ed->nome_edital }}</a></li>
-            <li><a href="">{{ $curr->grupo }}</a></li>
         </ul>
     </div>
 

@@ -38,7 +38,7 @@ Route::middleware(['auth', 'user-access:user', 'PreventBackHistory'])->group(fun
     Route::resource('/edital', EditalController::class);
     Route::resource('/oferta', OfertaController::class);
     Route::resource('/curriculo', CurriculoController::class);
-    //Route::get('/candidato/informar_dados/{user}', [UserController::class, 'add_user_info_show'])->name('candidato.show');
+    Route::get('/candidato/informar_dados/{user}', [UserController::class, 'add_user_info_show'])->name('candidato.show');
     Route::get('/candidato/informar_dados/', [UserController::class, 'add_user_info_create'])->name('candidato.create');
     Route::post('/candidato/informar_dados/', [UserController::class, 'add_user_info_store'])->name('candidato.store');
     Route::get('/candidato/informar_dados/{user}/editar', [UserController::class, 'add_user_info_edit'])->name('candidato.edit');
@@ -62,8 +62,8 @@ Route::middleware(['auth', 'user-access:servidor', 'PreventBackHistory'])->group
     //Route::post('/inscricao', [InscricaoCurriculoUserEditalController::class, 'store'])->name('inscricao.store');
     Route::get('/servidor/inscricoes/{edital_id}', [InscricaoCurriculoUserEditalController::class, 'show_inscricoes_edital'])->name('servidor.inscricoes.show');
     Route::get('/servidor/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'show'])->name('servidor.inscricao.show');
-    Route::get('/inscricao/{inscricao}/editar', [InscricaoCurriculoUserEditalController::class, 'edit'])->name('servidor.inscricao.edit');
-    Route::put('/inscricao/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'update'])->name('servidor.inscricao.update');
+    Route::get('/servidor/{inscricao}/editar', [InscricaoCurriculoUserEditalController::class, 'edit'])->name('servidor.inscricao.edit');
+    Route::put('/servidor/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'update'])->name('servidor.inscricao.update');
     Route::delete('/inscricao/{inscricao}', [InscricaoCurriculoUserEditalController::class, 'destroy'])->name('inscricao.destroy');
 
     Route::resource('/edital', EditalController::class);

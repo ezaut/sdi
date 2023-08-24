@@ -4,8 +4,8 @@
 
     <div class="">
 
-        <div class="">
-            <p>Validar ou Indeferir inscrição</p>
+        <div class="text-center">
+            <h4>Validar ou indeferir a inscrição</h4>
         </div>
 
         <div class="menu">

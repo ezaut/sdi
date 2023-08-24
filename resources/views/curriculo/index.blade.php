@@ -4,7 +4,7 @@
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">Curriculo</h4>
+        {{-- <h4 class="text-blue h4">Curriculo</h4> --}}
         <a href="{{ route('curriculo.create') }}" class="btn btn-primary">Adicionar Curriculo</a>
     </div>
     @if(Session::has('success'))
@@ -18,7 +18,7 @@
     </div>
     @endif
     <div class="pb-20">
-        <table class="data-table table stripe hover nowrap">
+        <table class="data-table table stripe hover display">
             <thead>
                 <tr>
                     <th >#</th>
@@ -26,18 +26,21 @@
                     <th>Descrição</th>
                     <th>Link dos documentos</th>
                     <th>Pontos</th>
+                    <th>User Id</th>
                     <th class="datatable-nosort">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @if($curriculos->count() > 0)
                 @foreach($curriculos as $curr)
+                @if (Auth::user()->id == $curr->user_id)
                 <tr>
                     <td class="table-plus">{{ $loop->iteration }}</td>
                     <td>{{ $curr->grupo }}</td>
                     <td>{{ $curr->descricao }}</td>
                     <td>{{ $curr->link_documento }}</td>
                     <td>{{ $curr->pontos }}</td>
+                    <td>{{ $curr->user_id }}</td>
                     <td>
                         <div class="dropdown">
                             <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
@@ -58,6 +61,7 @@
                         </div>
                     </td>
                 </tr>
+                @endif
                 @endforeach
                 @else
                 <tr>

@@ -1,8 +1,6 @@
 @if(Auth::user()->nome_mae != null)
 <form method="post" action="{{ route('inscricao.store', array('edital_id' => $ed->id, 'user_id' => Auth::user()->id)) }}">
     @csrf
-    {{ $ed->id }}
-    {{ Auth::user()->id }}
         <div class="pd-20 card-box mb-30">
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Nome</label>
@@ -141,8 +139,8 @@
 
     </form>
 @else
-    <div>
-        <span> Primeiro preencha suas informações no menu <a href="{{ route('candidato.info', Auth::user()->id  ) }}">Meus Dados</a> </span>
+    <div class="text-center">
+        <span><h2> Primeiro preencha suas informações no menu <a href="{{ route('candidato.edit', Auth::user()->id  ) }}">Dados pessoais</a> </h2></span>
     </div>
 @endif
 <script>

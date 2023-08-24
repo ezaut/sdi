@@ -47,6 +47,7 @@ class Curriculo extends Model
         'descricao',
         'link_documento',
         'pontos',
-        'user_id'
+        'user_id',
+        'valido_invalido'
     ];
 }

@@ -1,12 +1,10 @@
 @extends('layouts.app')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Visualizar Edital')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Visualizar edital')
 @section('content')
 
     <div class="">
 
-        <div class="">
-            <p>Visualizar Edital</p>
-        </div>
+
 
         <div class="menu">
             <ul>
@@ -40,7 +38,7 @@
             </div>
         </div>
         @auth
-            <a type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $edital->id) }}">Acessar a lista de inscritos</a>
+            <a type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $edital->id) }}">Lista de inscritos</a>
         @endauth
 
     </div>

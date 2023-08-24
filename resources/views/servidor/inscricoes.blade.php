@@ -26,7 +26,7 @@
                     <th>Vaga escolhida</th>
                     <th>Data da inscrição</th>
                     <th>Link dos documentos</th>
-                    <th>Situação</th>
+                    <th>Situação da inscrição</th>
                     <th class="datatable-nosort">Ação</th>
                 </tr>
             </thead>
@@ -34,12 +34,15 @@
                 @if($inscricoes->count() > 0)
                 @foreach($inscricoes as $inscricao)
                 <tr>
-
                     <td>{{ $inscricao->user->name }}</td>
                     <td>{{ $inscricao->vaga_escolhida }}</td>
                     <td>{{ date('d/m/Y', strtotime($inscricao->dt_inscricao)) }}</td>
                     <td>{{ $inscricao->curriculo->link_documento }}</td>
-                    <td>{{ $inscricao->curriculo->valido_invalido ? 'Válido' : 'Inválido' }} </td>
+                    <td>
+                        <span class="font-weight-bold {{ $inscricao->curriculo->valido_invalido ? 'text-success' : 'text-danger' }}">
+                            {{ $inscricao->curriculo->valido_invalido ? 'Válida' : 'Inválida' }}
+                        </span>
+                    </td>
                     <td>
                         <div class="dropdown">
                             <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
@@ -49,8 +52,6 @@
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                 <a class="dropdown-item" href="{{ route('servidor.inscricao.show', $inscricao) }}"><i class="dw dw-eye"></i> Detalhes</a>
                                 <a class="dropdown-item" href="{{ route('servidor.inscricao.edit', $inscricao)}}"><i class="dw dw-edit2"></i> Editar</a>
-
-
                             </div>
                         </div>
                     </td>
@@ -58,7 +59,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <td class="text-center" colspan="7">Inscrição não encontrada</td>
+                    <td class="text-center" colspan="6">Inscrição não encontrada</td>
                 </tr>
                 @endif
             </tbody>

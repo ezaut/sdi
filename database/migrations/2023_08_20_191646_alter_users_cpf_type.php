@@ -25,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->BigInteger('cpf')->unsigned()->unique();
+            $table->BigInteger('cpf')->unsigned()->unique()->change();
         });
     }
 };

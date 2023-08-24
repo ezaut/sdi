@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.10.5",
+        "deskapp": "^0.0.2",
         "editorconfig": "^2.0.0"
     }
 }

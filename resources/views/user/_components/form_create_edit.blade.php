@@ -48,7 +48,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>CPF :</label>
-                                <input class="form-control" id="cpf" type="numeric" name="cpf" value="{{ Auth::user()->cpf }}" disabled>
+                                <input class="form-control" id="cpf" type="text" name="cpf" value="{{ Auth::user()->cpf }}" disabled>
                             </div>
                             @error('cpf')
                             <div class="d-block text-danger" style="margin-top: -25px;">

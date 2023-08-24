@@ -61,7 +61,7 @@ class UserController extends Controller
             $user = new User();
             $user->create($request->all());
             return redirect()->route('home')->with('success', 'Seus dados foram atualizados com sucesso');
-        }else {
+        }else{
             return redirect()->route('candidato.edit')->with('danger', 'Erro ao atualizar seus dados, faltou atualizar algum campo.');
         }
 
@@ -113,8 +113,8 @@ class UserController extends Controller
             $request->validate($regras, $feedback);
             User::findOrFail($user)->update($request->all());
             return redirect()->route('home')->with('success', 'Seus dados foram atualizados com sucesso');
-        }else {
-            return redirect()->route('candidato.edit')->with('danger', 'Erro ao atualizar seus dados, faltou atualizar algum campo.');
+        }else{
+            return redirect()->route('candidato.edit')->with('warning', 'Erro ao atualizar seus dados, faltou atualizar algum campo.');
         }
     }
 }
