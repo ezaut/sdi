@@ -58,7 +58,7 @@ class OfertaController extends Controller
          * ToDo
          * verificar se o usuário deseja inserir mais uma oferta
          */
-        return redirect()->action(PontuacoeController::class, 'create')->with('success', 'A oferta foi adicionada com sucesso');
+         return redirect()->route('pontuacao.create')->with('success', 'A oferta foi adicionada com sucesso');
 
 
     }
@@ -119,7 +119,7 @@ class OfertaController extends Controller
     {
         $oferta = Oferta::findOrFail($id);
 
-        $oferta->delete();
+        $oferta->forceDelete();
 
         return redirect()->route('oferta.index')->with('success', 'A oferta foi excluída com sucesso');
     }

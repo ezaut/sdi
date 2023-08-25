@@ -4,8 +4,8 @@
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">Lista de Pontuações</h4>
-        <a href="{{ route('pontuacao.create') }}" class="btn btn-primary">Adicionar Pontuação</a>
+        <p class="text-info h4">Lista de Pontuações</p>
+        <a href="{{ route('pontuacao.create') }}" class="btn btn-info">Adicionar Pontuação</a>
     </div>
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">
@@ -18,7 +18,7 @@
     </div>
     @endif
     <div class="pb-20">
-        <table class="data-table table stripe hover nowrap">
+        <table class="data-table table stripe hover display">
             <thead>
                 <tr>
                     <th>#</th>
@@ -28,7 +28,8 @@
                     <th>Pontos</th>
                     <th>Pontuação máxima</th>
                     <th>Descrição</th>
-                    <th>Nome da Oferta</th>
+                    <th>Disciplina</th>
+                    <th>Carga horária</th>
                     <th class="datatable-nosort">Action</th>
                 </tr>
             </thead>
@@ -43,7 +44,8 @@
                     <td>{{ $pon->pontos }}</td>
                     <td>{{ $pon->pontuacao_max }}</td>
                     <td>{{ $pon->descricao }}</td>
-                    <td>{{ $pon->oferta->curso }} {{ $pon->oferta->disciplina }}</td>
+                    <td>{{ $pon->oferta->disciplina }}</td>
+                    <td>{{ $pon->oferta->carga_horaria }}</td>
                     <td>
                         <div class="dropdown">
                             <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
@@ -66,7 +68,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <td class="text-center" colspan="9">Pontuação não encontrada</td>
+                    <td class="text-center" colspan="10">Pontuação não encontrada</td>
                 </tr>
                 @endif
             </tbody>

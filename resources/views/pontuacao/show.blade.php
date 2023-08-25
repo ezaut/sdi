@@ -4,10 +4,6 @@
 
 <div class="">
 
-    <div class="">
-        <p>Visualizar Pontuação</p>
-    </div>
-
     <div class="menu">
         <ul>
             <li><a href="{{ route('pontuacao.index') }}">Voltar</a></li>
@@ -16,42 +12,43 @@
     </div>
 
     <div class="">
-        <div style="width: 30%; margin-left: auto; margin-right: auto;">
-            <table style="text-align: left" class="data-table table stripe hover nowrap">
-                <tr>
-                    <td>Edital:</td>
-                    <td>{{ $pontuacao->oferta->edital->nome_edital }}</td>
-                </tr>
-                <tr>
-                    <td>Curso:</td>
-                    <td>{{ $pontuacao->oferta->curso }}</td>
-                </tr>
-                <tr>
-                    <td>Grupo:</td>
-                    <td>{{ $pontuacao->grupo }}</td>
-                </tr>
-                <tr>
-                    <td>Pontos:</td>
-                    <td>{{ $pontuacao->pontos }}</td>
-                </tr>
-                <tr>
-                    <td>Pontuação máxima:</td>
-                    <td>{{ $pontuacao->pontuacao_max }}</td>
-                </tr>
-                <tr>
-                    <td>Descrição:</td>
-                    <td>{{ $pontuacao->descricao }}</td>
-                </tr>
+        <div class="pb-20" style="width: 70%; margin-left: auto; margin-right: auto;">
+            <table style="text-align: left" class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>Edital</th>
+                        <th>Curso</th>
+                        <th>Grupo</th>
+                        <th>Pontos</th>
+                        <th>Pontuação máxima</th>
+                        <th>Descrição</th>
+                        <th>Disciplina</th>
+                        <th>Carga horária</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $pontuacao->oferta->edital->nome_edital }}</td>
+                        <td>{{ $pontuacao->oferta->curso }}</td>
+                        <td>{{ $pontuacao->grupo }}</td>
+                        <td>{{ $pontuacao->pontos }}</td>
+                        <td>{{ $pontuacao->pontuacao_max }}</td>
+                        <td>{{ $pontuacao->descricao }}</td>
+                        <td>{{ $pontuacao->oferta->disciplina }}</td>
+                        <td>{{ $pontuacao->oferta->carga_horaria }}</td>
+                    </tr>
+                </tbody>
 
             </table>
-            <form action="{{ route('pontuacao.destroy', $pontuacao->id) }}" method="POST" type="button" class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
+            <form action="{{ route('pontuacao.destroy', $pontuacao->id) }}" method="POST" type="button"
+                class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger m-0">Deletar</button>
             </form>
+
         </div>
     </div>
 
 </div>
 @endsection
-

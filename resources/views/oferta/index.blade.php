@@ -4,8 +4,8 @@
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">Lista de Ofertas</h4>
-        <a href="{{ route('oferta.create') }}" class="btn btn-primary">Adicionar Oferta</a>
+        <p class="text-info h4">Lista de Ofertas</p>
+        <a href="{{ route('oferta.create') }}" class="btn btn-info">Adicionar Oferta</a>
     </div>
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">
@@ -18,7 +18,7 @@
     </div>
     @endif
     <div class="pb-20">
-        <table class="data-table table stripe hover nowrap">
+        <table class="data-table table stripe hover display">
             <thead>
                 <tr>
                     <th>#</th>

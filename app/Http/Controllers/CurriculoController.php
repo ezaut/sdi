@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curriculo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -13,7 +14,7 @@ class CurriculoController extends Controller
      */
     public function index()
     {
-        $curriculos = Curriculo::orderBy('created_at', 'DESC')->get();
+        $curriculos = Curriculo::all();
 
         return view('curriculo.index', compact('curriculos'));
     }
@@ -32,22 +33,24 @@ class CurriculoController extends Controller
     public function store(Request $request)
     {
         $regras = [
-            'grupo' => 'required|unique:curriculos,grupo,',
+            'grupo' => 'required',
             'descricao' => 'required',
             'link_documento' => 'required',
             'pontos' => 'required',
+            'user_id' => 'required|unique:curriculos,user_id,',
         ];
 
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido',
-            'unique' => 'O campo :attribute já está sendo utilizado.',
+            'user_id.unique' => 'Curriculo não foi adicionado porque você já tem um no sistema.',
         ];
 
         $request->validate($regras, $feedback);
-
+        //dd($request);
         Curriculo::create($request->all());
 
         return redirect()->route('curriculo.index')->with('success', 'Curriculo adicionado com sucesso');
+
     }
 
     /**
@@ -76,15 +79,16 @@ class CurriculoController extends Controller
     public function update(Request $request, string $id)
     {
         $regras = [
-            'grupo' => 'required|unique:curriculos,grupo,',
+            'grupo' => 'required',
             'descricao' => 'required',
             'link_documento' => 'required',
             'pontos' => 'required',
+            'user_id' => 'required|unique:curriculos,user_id,',
         ];
 
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido',
-            'unique' => 'O campo :attribute já está sendo utilizado.',
+            'user_id.unique' => 'O campo :attribute já está sendo utilizado.',
         ];
 
         $request->validate($regras, $feedback);

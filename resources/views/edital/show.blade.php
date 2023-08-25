@@ -1,12 +1,10 @@
 @extends('layouts.app')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Visualizar Edital')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Visualizar edital')
 @section('content')
 
     <div class="">
 
-        <div class="">
-            <p>Visualizar Edital</p>
-        </div>
+
 
         <div class="menu">
             <ul>
@@ -16,15 +14,15 @@
         </div>
 
         <div class="">
-            <div style="width: 30%; margin-left: auto; margin-right: auto;">
-                <table class="data-table table stripe hover nowrap" style="text-align: left">
+            <div style="width: 70%; margin-left: auto; margin-right: auto;">
+                <table class="data-table table stripe hover display" style="text-align: left">
                     <tr>
                         <td>ID:</td>
                         <td>{{ $edital->id }}</td>
                     </tr>
                     <tr>
                         <td>Nome:</td>
-                        <td>{{ $edital->nome_edital }}</td>
+                        <td class="table-cell">{{ $edital->nome_edital }}</td>
                     </tr>
                     <tr>
                         <td>Data de início:</td>
@@ -40,10 +38,9 @@
             </div>
         </div>
         @auth
-            <a type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $edital->id) }}">Acessar a lista de inscritos</a>
+            <a type="button" class="btn btn-info" href="{{ route('servidor.inscricoes.show', $edital->id) }}">Lista de inscritos</a>
         @endauth
 
     </div>
-
 @endsection
 

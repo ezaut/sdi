@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Lista de Pontuação')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Adicionar Pontuação')
 @section('content')
 
 <div class="">
@@ -10,6 +10,11 @@
     @if(Session::has('danger'))
     <div class="alert alert-danger" role="alert">
         {{ Session::get('danger') }}
+    </div>
+    @endif
+    @if(Session::has('success'))
+    <div class="alert alert-success" role="alert">
+        {{ Session::get('success') }}
     </div>
     @endif
     <div class="menu">

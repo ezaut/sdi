@@ -34,7 +34,7 @@ class PontuacoeController extends Controller
     public function store(Request $request)
     {
         $regras = [
-            'grupo'             =>'required|unique:pontuacoes',
+            'grupo'             =>'required',
             'pontos'            =>'required',
             'pontuacao_max'     =>'required',
             'descricao'         =>'required',
@@ -55,7 +55,7 @@ class PontuacoeController extends Controller
          * ToDo
          * verificar se o usuário deseja inserir mais de uma pontuação
          */
-        return redirect()->route('pontuacao.index')->with('success', 'A pontuação foi adicionada com sucesso');
+        return redirect()->route('pontuacao.create')->with('success', 'A pontuação foi adicionada com sucesso');
 
 
     }
@@ -118,7 +118,7 @@ class PontuacoeController extends Controller
     {
         $pontuacao = Pontuacoe::findOrFail($id);
 
-        $pontuacao->delete();
+        $pontuacao->forceDelete();
 
         return redirect()->route('pontuacao.index')->with('success', 'A pontuação foi excluída com sucesso');
     }

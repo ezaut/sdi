@@ -50,7 +50,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'cpf' => ['required', 'integer','unique:'.User::class],
+            'cpf' => ['required', 'string','unique:'.User::class],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -63,7 +63,7 @@ class RegisterController extends Controller
             'bairro' => ['string'],
             'cidade' => ['string'],
             'uf' => ['string','min:2','max:2'],
-            'cep' => ['string','min:8','max:12'],
+            'cep' => ['string','min:8','max:10'],
             'rg' => ['integer'],
             'org_exp' => ['string'],
             'dt_emissao' => ['date'],
