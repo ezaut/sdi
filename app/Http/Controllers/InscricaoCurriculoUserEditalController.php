@@ -33,13 +33,13 @@ class InscricaoCurriculoUserEditalController extends Controller
         $ed = Edital::findOrFail($edital_id);
         //$ofertas = Oferta::where('edital_id', '=', $id)->get();
         $ofertas = Edital::find($edital_id)->ofertas;
-        $edital = Edital::with(['ofertas'])->orderBy('created_at', 'DESC')->get();
+
         $curr = Curriculo::findOrFail($curriculo_id);
 
         //$user = User::findOrFail($id);
         //$ins = Inscricao_curriculo_user_edital::create(['edital', 'user', 'curriculo']);
         //return response()->json($ed);
-        return view('inscricoes.criar', compact('ed', 'edital', 'ofertas', 'curr'));
+        return view('inscricoes.criar', compact('ed', 'ofertas', 'curr'));
     }
 
     /**
@@ -56,14 +56,22 @@ class InscricaoCurriculoUserEditalController extends Controller
         ];
 
         $request->validate($regras, $feedback);
-        $user = User::find($request->user_id);
-        $teste_inscricao = Inscricao_curriculo_user_edital::where('user_id', '=', $user->id)->get();
+
+        $teste_inscricao = Inscricao_curriculo_user_edital::where('user_id', $request->user_id)
+        ->where('edital_id', $request->edital_id)
+        ->get();
         /**
          * verificar para nao permetir inscrição na mesma vaga duas vezes
          */
-        $curriculo = $user->curriculo;
+        if($teste_inscricao){
+            foreach ($teste_inscricao as $teste) {
+                $teste->delete();
+            }
+
+        }
+
         $data = $request->all();
-        $data['curriculo_id'] = strval($curriculo->id);
+
         Inscricao_curriculo_user_edital::create($data);
 
         return redirect()->route('home')->with('success', 'A inscrição foi realizada com sucesso');

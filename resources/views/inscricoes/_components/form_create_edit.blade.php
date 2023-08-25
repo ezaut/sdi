@@ -1,5 +1,5 @@
 @if(Auth::user()->nome_mae != null)
-<form method="post" action="{{ route('inscricao.store', array('edital_id' => $ed->id, 'user_id' => Auth::user()->id)) }}">
+<form method="post" action="{{ route('inscricao.store', array('edital_id' => $ed->id, 'curriculo_id' => $curr->id, 'user_id' => Auth::user()->id)) }}">
     @csrf
         <div class="pd-20 card-box mb-30">
             <div class="form-group row">
@@ -140,7 +140,7 @@
     </form>
 @else
     <div class="text-center">
-        <span><h2> Primeiro preencha suas informações no menu <a href="{{ route('candidato.edit', Auth::user()->id  ) }}">Dados pessoais</a> </h2></span>
+        <span><h2> Primeiro complete suas informações no menu <a href="{{ route('candidato.edit', Auth::user()->id  ) }}">Dados pessoais</a> </h2></span>
     </div>
 @endif
 <script>

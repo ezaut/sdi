@@ -18,7 +18,7 @@
         <tbody>
             @forelse($inscricoes as $inscricao)
                 <tr>
-                    <td>{{ $inscricao->edital_id }}</td>
+                    <td>{{ $inscricao->edital->nome_edital }}</td>
                     <td>{{ $inscricao->vaga_escolhida }}</td>
                     <td>{{ date('d/m/Y', strtotime($inscricao->dt_inscricao)) }}</td>
                     <td>
